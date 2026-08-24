@@ -13,6 +13,8 @@ website:
   comments:
     giscus:
       repo: softwaresaved/word-explainer
+      repo-id: R_kgDOSQrEzQ
+      mapping: pathname
       reactions-enabled: true
       loading: lazy
       theme: light_protanopia
