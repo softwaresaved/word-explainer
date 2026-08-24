@@ -1,0 +1,92 @@
+project:
+  type: website
+
+website:
+  title: "Word Explainer for Wonder-Driven Computer People"
+  # site-url: https://softwaresaved.github.io/up-goer-five/
+  # description: "description of the website"
+  favicon: assets/logos/favicon.png
+  page-navigation: true
+  back-to-top-navigation: true
+  image: assets/logos/logo-long-bg.png
+  image-alt: Word Explainer for Wonder-Driven Computer People
+  comments:
+    giscus:
+      repo: wong-hl/word-explainer
+      reactions-enabled: true
+      loading: lazy
+      theme: light_protanopia
+
+  # repo-url: https://github.com/softwaresaved/up-goer-five
+  repo-url: https://github.com/wong-hl/word-explainer
+  repo-actions:
+    - issue
+
+  search:
+    location: navbar
+    type: overlay
+
+  navbar:
+    title: "Word Explainer"
+    logo-alt: Word Explainer for Wonder-Driven Computer People
+    foreground: primary
+    tools:
+      - icon: github
+        aria-label: Link to GitHub repo
+        target: _blank # Opens a new tab
+        # href: https://github.com/wong-hl/word-explainer
+        href: https://github.com/softwaresaved/up-goer-five
+    right:
+      - text: Kinds of People
+        aria-label: Link to Gallery containing the roles
+        href: words/roles/index.qmd
+      - text: Words We Use
+        aria-label: Link to listing containing the terminology used
+        href: words/terms/index.qmd
+      - text: A to Z
+        aria-label: Link to A to Z of the words
+        href: a-to-z/index.qmd
+      - text: About
+        aria-label: Link to page about the project
+        href: about/index.qmd
+
+  page-footer:
+    left: |
+      Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+    right:
+      - text: "License"
+        aria-label: "License Details"
+        href: license.qmd
+      - icon: rss
+
+  open-graph: true
+
+  twitter-card:
+    title: Word Explainer for Wonder-Driven Computer People
+    description: Using the 1000 most common words to explain research software
+    card-style: summary_large_image
+    image: assets/logos/logo-large-twitter-card.png
+
+
+# Theme: Put brand after to allow variable defined in brand to be used in custom scss
+# See: https://github.com/quarto-dev/quarto-web/discussions/1509#discussion-7638646
+format:
+  html:
+    axe: true
+    theme:
+      - cosmo
+      - assets/theme.scss
+      - brand
+    code-link: true
+    code-overflow: wrap
+    code-block-border-left: true
+    code-block-bg: true
+    syntax-highlighting: atom-one
+    pagetitle: "{{< meta title >}}"
+    lightbox: true
+
+execute:
+  freeze: auto
+
+language:
+  search-text-placeholder: Search

@@ -1,0 +1,111 @@
+/*-- scss:defaults --*/
+
+$primary: $brand-dusty-berry;
+$secondary: $brand-warm_teal;
+$tertiary: $brand-antique_gold;
+$bg-color-brand: $brand-bone-white;
+
+$card-title-color: lighten($primary, 2%);
+
+/*-- scss:rules --*/
+
+// Increase the height of navbar so that the logo is visible
+.navbar-logo {
+  min-height: 2.8rem;
+}
+
+// Make it transparent to match the background colour
+.navbar {
+  background: $bg-color-brand;
+}
+
+// links in nav bar
+.navbar-nav .nav-link {
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  border-bottom: 0px hidden $secondary;
+  margin: 0px 10px 0px 10px;
+  padding: 2px 2px 4px 2px !important;
+
+  &:hover {
+    border-bottom: 1px solid $secondary !important;
+    padding: 2px 2px 0px 2px !important;
+  }
+}
+
+// Footer links on right side
+.nav-footer .nav-link {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Grid card listing
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-subtitle {
+  font-weight: 500;
+}
+
+.card-img {
+  border-radius: 10px 10px 0px 0px;
+  object-fit: contain;
+}
+
+img.thumbnail-image.card-img {
+  width: 100%;
+  object-fit: contain !important;
+}
+
+.roles-home-page .card-subtitle {
+  border-bottom: 1px solid $gray-300;
+  padding-bottom: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.landing-page a.to-pages {
+  color: $primary;
+}
+
+.landing-page .to-pages p {
+  text-align: right;
+}
+
+.landing-page .to-pages a {
+  color: $primary;
+}
+
+.landing-page .title-heading h2 {
+  font-size: 2.2rem;
+  border-bottom: none;
+}
+
+.terms-page .definition {
+  border-left: 3px solid $tertiary;
+  border-radius: 2px;
+  padding-left: 0.5rem;
+  display: block;
+
+  margin-bottom: 1rem;
+  margin-left: 0.4rem;
+}
+
+.terms-page .definition p {
+  margin-top: 0.1rem;
+  margin-bottom: 0.1rem;
+  line-height: 1.1;
+  font-weight: bolder;
+}
+
+.terms-page h2 span.word-type {
+  color: $secondary;
+  font-size: 0.7em;
+}
+
+.terms-page h2 {
+  text-transform: lowercase;
+}

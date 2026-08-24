@@ -1,0 +1,17 @@
+---
+title: Research Institution
+pagetitle: Research Institution - term
+categories:
+  - noun
+---
+
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition}
+
+A place where people work to understand more about the world
+
+:::
+
+A place where people work to understand more about the world (and look for new facts)

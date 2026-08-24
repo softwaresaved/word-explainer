@@ -1,0 +1,17 @@
+---
+title: University
+pagetitle: University - term
+categories:
+  - noun
+---
+
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition}
+
+School for students and teachers to learn how to understand and look for new facts
+
+:::
+
+A place where people go after school to learn more and find out new things. It has parts for people who are just starting and parts for people who have gone further. There are teachers and people work to find out new things.

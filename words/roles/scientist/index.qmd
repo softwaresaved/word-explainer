@@ -1,0 +1,16 @@
+---
+title: Scientist
+subtitle: Someone who looks at the world around them and asks questions like, why is it the way it is or how does it work
+description: Person who's job is to find out new things. They get facts and other things to help them come up with ideas and learn more about one part of the world, like living things, what things are made of, or how things move. They work to understand the world around us, fix problems, and tell other people what they find so everyone can know more.
+image: ../../coming_soon.png
+---
+
+## {{< meta subtitle >}}
+
+::: {.column-margin}
+
+![](../../coming_soon.png){fig-align="center" fig-alt="placeholder coming soon image"}
+
+:::
+
+{{< meta description >}}

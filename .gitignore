@@ -1,0 +1,24 @@
+# Modified from:
+# https://raw.githubusercontent.com/quarto-dev/quarto-cli/refs/heads/main/.gitignore
+
+.DS_Store
+.idea
+
+*.RData
+*.Rproj
+*.Rhistory
+__pycache__/
+.Rproj.user
+*~
+.env
+
+# quarto cache directories (populated at render time)
+.quarto
+
+/.quarto/
+**/*.quarto_ipynb
+
+# Ignore built site
+_site/
+# Ignore quarto internal file, e.g. _quarto_internal_scss_error.scss
+_quarto_internal_*

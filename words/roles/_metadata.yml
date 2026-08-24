@@ -1,0 +1,11 @@
+format:
+  html:
+    page-layout: full
+    body-classes: roles-page
+    title-block-style: none
+    template-partials:
+      - title-block.html
+# title-block-banner: false
+# title-block-style: none
+axe: true
+lightbox: true

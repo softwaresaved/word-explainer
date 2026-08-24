@@ -1,0 +1,48 @@
+defaults:
+  bootstrap:
+    defaults:
+      navbar-bg: "#f6f4f0"
+
+color:
+  palette:
+    bone-white: "#f6f4f0"
+    dusty-berry: "#8C3D5A"
+    warm-teal: "#2A6B6B"
+    antique-gold: "#C49A3C"
+    near-black: "#111111"
+  background: bone-white
+  foreground: near-black
+  primary: dusty-berry
+  secondary: warm-teal
+  tertiary: antique-gold
+
+logo:
+  # small: assets/logos/logo-short.svg
+  medium: assets/logos/logo-long.svg
+  large: assets/logos/logo-color.svg
+
+typography:
+  fonts:
+    - family: Open Sans
+      source: google
+    - family: Raleway
+      source: google
+    - family: JetBrains Mono
+      source: google
+  base: Open Sans
+  headings:
+    family: Raleway
+    color: primary
+    weight: bold
+    line-height: 1.6rem
+  link:
+    decoration: underline
+    color: secondary
+  monospace: JetBrains Mono
+  monospace-inline:
+    family: JetBrains Mono
+    background-color: white
+    color: near-black
+  monospace-block:
+    family: JetBrains Mono
+    background-color: white
