@@ -3,8 +3,8 @@ project:
 
 website:
   title: "Word Explainer for Wonder-Driven Computer People"
-  # site-url: https://softwaresaved.github.io/up-goer-five/
-  # description: "description of the website"
+  site-url: https://softwaresaved.github.io/word-explainer/
+  description: "Translations for DRTPs - explaining what we do with the 1000 most common words"
   favicon: assets/logos/favicon.png
   page-navigation: true
   back-to-top-navigation: true
@@ -12,13 +12,12 @@ website:
   image-alt: Word Explainer for Wonder-Driven Computer People
   comments:
     giscus:
-      repo: wong-hl/word-explainer
+      repo: softwaresaved/word-explainer
       reactions-enabled: true
       loading: lazy
       theme: light_protanopia
 
-  # repo-url: https://github.com/softwaresaved/up-goer-five
-  repo-url: https://github.com/wong-hl/word-explainer
+  repo-url: https://github.com/softwaresaved/word-explainer
   repo-actions:
     - issue
 
@@ -34,8 +33,7 @@ website:
       - icon: github
         aria-label: Link to GitHub repo
         target: _blank # Opens a new tab
-        # href: https://github.com/wong-hl/word-explainer
-        href: https://github.com/softwaresaved/up-goer-five
+        href: https://github.com/softwaresaved/word-explainer
     right:
       - text: Kinds of People
         aria-label: Link to Gallery containing the roles
