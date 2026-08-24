@@ -1,0 +1,20 @@
+---
+title: "About the Word Explainer"
+format:
+    html:
+        page-layout: full
+comments: false
+---
+
+## How did it come about?
+
+CW26
+
+
+## Contributing
+
+How it works? Instructions on how people can interact with the site
+
+## Give it a go!
+
+[simple writer](https://xkcd.com/simplewriter/)

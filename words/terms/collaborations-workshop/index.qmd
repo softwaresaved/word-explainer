@@ -1,0 +1,17 @@
+---
+title: Collaborations Workshop
+pagetitle: Collaborations Workshop - term
+categories:
+  - noun
+---
+
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition}
+
+Lots of different people working together meeting
+
+:::
+
+An often exciting and sometimes fun meeting bringing many different people to have interesting conversations to change the world and themselves

@@ -1,0 +1,17 @@
+---
+title: Data
+pagetitle: Data - term
+categories:
+  - noun
+---
+
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition}
+
+Numbers and words that can be used to answer questions
+
+:::
+
+Pieces of things like numbers, words, pictures, or sounds. People work on these pieces to sort them and give them clear ideas, decide things and fix problems.

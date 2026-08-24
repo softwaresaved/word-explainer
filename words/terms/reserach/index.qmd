@@ -1,0 +1,27 @@
+---
+title: Research
+pagetitle: Research - terms
+categories:
+  - noun
+  - verb
+---
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition }
+
+Piece of work sharing new facts made from ways to understand
+
+:::
+
+Piece of work sharing new facts made from ways to understand the world
+
+## {{< meta title >}} [what someone or something does]{.word-type}
+
+::: {.definition }
+
+A way to understand and look for new facts
+
+:::
+
+A planned way of looking into something to find out new things, check if ideas are right, or learn more about it. It means getting facts, writing them down, and working through them so they can help people know what to do. This kind of work can be done to learn new ideas, or to help fix real problems in the world

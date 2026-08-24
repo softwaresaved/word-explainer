@@ -1,0 +1,19 @@
+---
+title: System Administrator
+subtitle: Keeper of Computer Gates and Keys
+description: |
+    As the keeper, I manage who can use the computers and what they can do on it. I make sure that everyone can only see the information and the computer power to do their job. Nothing more. This is important when people are sharing one big computer. Only opening the gates and handing over the keys needed to get their job done.
+
+    By being careful about which gates I open and hand the keys to, I keep the people, their information and the computer safe. If anything or anyone that is not allowed to be on the computer, I stop them. When things break, I do my best to figure out what went wrong and to fix it.
+image: ../../coming_soon.png
+---
+
+## {{< meta subtitle >}}
+
+::: {.column-margin}
+
+![](../../coming_soon.png){fig-align="center" fig-alt="placeholder coming soon image"}
+
+:::
+
+{{< meta description >}}

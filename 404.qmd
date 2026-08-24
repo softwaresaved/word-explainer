@@ -1,0 +1,26 @@
+---
+title: ""
+pagetitle: "404 Page Not Found"
+page-layout: custom
+---
+
+::: {.grid}
+::: {.g-col-0 .g-col-md-3}
+:::
+::: {.g-col-12 .g-col-md-6 .px-3 .px-md-0}
+  [
+    <img
+    src="assets/images/404-error.svg"
+    style="width: 100%; height: auto; max-width: 900px;"
+    alt="404 We looked everywhere... But the page is missing. Let's find a better place for you to go"
+    />
+  ](/)
+
+::: {.g-col-12 .g-col-sm-6 .d-flex .justify-content-center .align-items-center}
+  [Go to home page?](/){.btn .btn-primary style="font-size: 1rem; font-weight: bold border-radius: 6px;"}
+:::
+
+:::
+::: {.g-col-0 .g-col-md-3}
+:::
+:::

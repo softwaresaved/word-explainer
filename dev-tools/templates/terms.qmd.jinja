@@ -1,0 +1,39 @@
+---
+title: {{ term_name }}
+pagetitle: {{ term_name }} - term
+categories:
+  {% if is_noun -%}
+  - noun
+  {% endif %}
+  {%- if is_verb -%}
+  - verb
+  {% endif %}
+---
+
+{% if is_noun -%}
+
+## {{ '{{' }}< meta title >{{ '}}' }} [the name of a thing]{{ '{' }}.word-type{{ '}' }}
+
+::: {{ '{' }}.definition{{ '}' }}
+
+{{ noun_def }}
+
+:::
+
+{{ noun_description }}
+
+{% endif %}
+
+{%- if is_verb -%}
+
+## {{ '{{' }}< meta title >{{ '}}' }} [what someone or something does]{{ '{' }}.word-type{{ '}' }}
+
+::: {{ '{' }}.definition{{ '}' }}
+
+{{ verb_def }}
+
+:::
+
+{{ verb_description }}
+
+{% endif %}

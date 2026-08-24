@@ -1,0 +1,16 @@
+---
+title: Manager
+subtitle: A person who manages other people
+description: A person who helps a group of people work well together. They plan what work needs to be done, give jobs to people, and make sure everything stays on track.
+image: ../../coming_soon.png
+---
+
+## {{< meta subtitle >}}
+
+::: {.column-margin}
+
+![](../../coming_soon.png){fig-align="center" fig-alt="placeholder coming soon image"}
+
+:::
+
+{{< meta description >}}

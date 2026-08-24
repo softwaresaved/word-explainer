@@ -1,0 +1,18 @@
+---
+title: Coffee
+pagetitle: Coffee - term
+categories:
+  - noun
+---
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition}
+
+Get work done drink
+
+:::
+
+A warm drink to help us wake up. It allows us to use our brain to fix problems and build new systems.
+
+If you are looking for us, you can often find us near the machine that makes this drink as we always need more! When you see us there, approach with care to avoid scaring us.

@@ -1,0 +1,17 @@
+---
+title: Software
+pagetitle: Software - term
+categories:
+  - noun
+---
+
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition}
+
+Written steps to control a computer wrapped together
+
+:::
+
+Steps that tell a computer what to do and how to do it. Includes all the sets of steps a computer uses, like the main set of steps that runs the computer and other sets of steps people use to do different jobs.

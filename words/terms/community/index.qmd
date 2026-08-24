@@ -1,0 +1,17 @@
+---
+title: Community
+pagetitle: Community - term
+categories:
+  - noun
+---
+
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition}
+
+Group of people who have a shared interest or want or have something the same
+
+:::
+
+A group of people who share things like where they live, what they like, or who they are. They often know each other, help each other, and feel like they are part of the same group.

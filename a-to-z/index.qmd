@@ -1,0 +1,15 @@
+---
+title: "Glossary"
+listing:
+  id: glossary-listing
+  contents:
+    - "../words/roles/**/*.qmd"
+    - "../words/terms/**/*.qmd"
+    - "!../words/terms/index.qmd"
+    - "!../words/roles/index.qmd"
+  type: custom
+  template: glossary.ejs.md
+  sort: "title asc"
+  fields: [title, description, letter]
+comments: false
+---
