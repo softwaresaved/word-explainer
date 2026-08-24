@@ -22,7 +22,7 @@ format:
 ## Translations for dRTPs {.title-heading}
 
 What is a digital research technical professional (dRTP)? It is a question that's hard to answer, even to researchers, let alone those outside research.
-This site uses the Up Goer Five Challenge, inspired by [this XKCD comic](https://xkcd.com/1133/), to give the dRTP community a shared language for describing what we do.
+This uses the Up Goer Five Challenge, inspired by [this XKCD comic](https://xkcd.com/1133/), to give the dRTP community fun translations to describe what we do in the thousand most common words.
 [**Find out more about the project and how to contribute**](about/){.to-pages} &ndash; or [try the challenge yourself](https://xkcd.com/simplewriter/)!
 
 ::: {.to-pages}
