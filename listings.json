@@ -1,24 +1,5 @@
 [
   {
-    "listing": "/a-to-z/index.html",
-    "items": [
-      "/words/terms/coffee/index.html",
-      "/words/terms/collaborations-workshop/index.html",
-      "/words/terms/community/index.html",
-      "/words/terms/data/index.html",
-      "/words/roles/manager/index.html",
-      "/words/roles/principal-investigator/index.html",
-      "/words/terms/reserach/index.html",
-      "/words/roles/rcm/index.html",
-      "/words/terms/research-institution/index.html",
-      "/words/roles/rse/index.html",
-      "/words/roles/scientist/index.html",
-      "/words/terms/software/index.html",
-      "/words/roles/sys-admin/index.html",
-      "/words/terms/university/index.html"
-    ]
-  },
-  {
     "listing": "/words/roles/index.html",
     "items": [
       "/words/roles/manager/index.html",
@@ -39,6 +20,25 @@
       "/words/terms/reserach/index.html",
       "/words/terms/research-institution/index.html",
       "/words/terms/software/index.html",
+      "/words/terms/university/index.html"
+    ]
+  },
+  {
+    "listing": "/a-to-z/index.html",
+    "items": [
+      "/words/terms/coffee/index.html",
+      "/words/terms/collaborations-workshop/index.html",
+      "/words/terms/community/index.html",
+      "/words/terms/data/index.html",
+      "/words/roles/manager/index.html",
+      "/words/roles/principal-investigator/index.html",
+      "/words/terms/reserach/index.html",
+      "/words/roles/rcm/index.html",
+      "/words/terms/research-institution/index.html",
+      "/words/roles/rse/index.html",
+      "/words/roles/scientist/index.html",
+      "/words/terms/software/index.html",
+      "/words/roles/sys-admin/index.html",
       "/words/terms/university/index.html"
     ]
   }
