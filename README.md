@@ -1,4 +1,4 @@
-# Explainer of Words for Computer People and Things
+# Word Explainer for Wonder-Driven Computer People
 
 ![Animation showing the use of Up Goer Five editor to define a scientist or research software engineer.](simple-writer-demo.gif)
 
