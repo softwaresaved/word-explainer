@@ -1,0 +1,71 @@
+name: Word coverage check
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  word-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Word coverage report
+        run: |
+          set -e
+
+          echo "Downloading dictionary..."
+          curl -s -o dict.txt https://splasho.com/upgoer5/phpspellcheck/dictionaries/1000.dicin
+
+          echo "Normalizing dictionary..."
+          tr '[:upper:]' '[:lower:]' < dict.txt | sort -u > dict_clean.txt
+
+          echo "Getting changed files..."
+          git fetch origin main
+
+          # ---- CONFIGURE EXEMPTIONS HERE ----
+          git diff --name-only origin/main \
+            | grep -Ev '^(LICENSE|little_demo.gif|\.github/|docs)' \
+            > files.txt || true
+
+          if [ ! -s files.txt ]; then
+            echo "No files to check"
+            exit 0
+          fi
+
+          echo "Files being checked:"
+          cat files.txt
+
+          echo "Extracting words..."
+          xargs cat < files.txt \
+            | sed '/<!-- ALL-CONTRIBUTORS-LIST:START/,/<!-- ALL-CONTRIBUTORS-LIST:END/d' \
+            | tr -cs 'a-zA-Z' '\n' \
+            | tr '[:upper:]' '[:lower:]' \
+            > all_words.txt
+
+          total=$(wc -l < all_words.txt)
+
+          if [ "$total" -eq 0 ]; then
+            echo "No words found"
+            exit 0
+          fi
+
+          echo "Matching words..."
+          grep -Fx -f dict_clean.txt all_words.txt > matched.txt || true
+          matched=$(wc -l < matched.txt)
+
+          percent=$(awk "BEGIN { printf \"%.2f\", ($matched/$total)*100 }")
+
+          echo ""
+          echo "===== RESULT ====="
+          echo "Total words:   $total"
+          echo "Matched words: $matched"
+          echo "Coverage:      $percent%"
+          echo "=================="
+
+          echo ""
+          echo "Sample unknown words:"
+          grep -Fxv -f dict_clean.txt all_words.txt | sort -u | head -20 || true
+
+          # OPTIONAL THRESHOLD
