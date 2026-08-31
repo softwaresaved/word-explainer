@@ -1,8 +1,8 @@
 ---
 title: "About the Word Explainer"
 format:
-    html:
-        page-layout: full
+  html:
+    page-layout: full
 comments: false
 ---
 
