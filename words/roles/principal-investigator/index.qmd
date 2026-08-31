@@ -1,6 +1,6 @@
 ---
 title: Principal Investigator
-subtitle: Money-getting for understanding person
+subtitle: Money Getter
 description: I lead a group of different people who work to understand the world or people by looking for new facts. My work is to get money to let us do this, and make sure that we do it in a good way so that others can learn from it.
 ---
 
