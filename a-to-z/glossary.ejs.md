@@ -10,7 +10,7 @@ const letters = [...new Set(items.map(item => item.title[0].toUpperCase()))].sor
   <% const letterItems = items.filter(item => item.title[0].toUpperCase() === letter); %>
   <% for (const item of letterItems) { %>
     <dt><a href="<%= item.path %>"><%= item.title %></a></dt>
-    <dd><%= item.description %></dd>
+    <dd><%= item.subtitle ? item.subtitle : item.description %></dd>
   <% } %>
   </dl>
 <% } %>
