@@ -14,4 +14,4 @@ Written steps to control a computer wrapped together
 
 :::
 
-Steps that tell a computer what to do and how to do it. Includes all the sets of steps a computer uses, like the main set of steps that runs the computer and other sets of steps people use to do different jobs.
+Steps that tell a computer what to do and how to do it. It has all the sets of steps a computer uses, like the main set of steps that runs the computer and other sets of steps people use to do different jobs.

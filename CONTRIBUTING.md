@@ -290,6 +290,7 @@ word-explainer/
 ├── assets/                    # Static assets (images, CSS)
 ├── dev-tools/
 │   ├── create.py              # Script to scaffold new entries
+│   ├── validate.py            # Script to validate up goer five contents
 │   └── templates/             # Jinja templates for terms and roles
 ├── words/
 │   ├── roles/                 # Role entries
