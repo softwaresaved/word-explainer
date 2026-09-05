@@ -1,0 +1,67 @@
+name: Suggest a new term or role
+description: Suggest a new term or role to be added to the Word Explainer
+title: "[NEW] <term or role name>"
+labels: ["new entry"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new entry! Please fill in the details below.
+
+        - Terms (i.e. words we use) are concepts, tools, or ideas (e.g. version control, open source)
+        - Roles (i.e. kinds of people) are job titles or functions people hold (e.g. Research Software Engineer, Data Scientist)
+
+  - type: dropdown
+    id: entry_type
+    attributes:
+      label: What would you like to add?
+      options:
+        - A new term
+        - A new role
+    validations:
+      required: true
+
+  - type: input
+    id: entry_name
+    attributes:
+      label: Name of the term or role
+      placeholder: e.g. version control, Research Software Engineer
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why should this be added?
+      description: Why is this term or role relevant to the Word Explainer?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: has_definition
+    attributes:
+      label: Do you have a suggested definition?
+      description: |
+        Definitions should only use the 1000 most common words in English.
+        You can check this at [XKCD simple writer](https://xkcd.com/simplewriter/).
+      options:
+        - "Yes — I have a suggested definition (please provide below)"
+        - "No — I would like the community to suggest one"
+    validations:
+      required: true
+
+  - type: textarea
+    id: definition
+    attributes:
+      label: Suggested definition
+      description: |
+        If you have a suggested definition, please provide it here.
+        Remember — only use the 1000 most common words in English!
+        Check your definition at [XKCD simple writer](https://xkcd.com/simplewriter/).
+      placeholder: Leave blank if you would like the community to suggest one.
+
+  - type: textarea
+    id: anything_else
+    attributes:
+      label: Anything else?
+      description: Any additional context or notes.
