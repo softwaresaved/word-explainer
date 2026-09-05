@@ -4,7 +4,7 @@ project:
 website:
   title: "Word Explainer for Wonder-Driven Computer People"
   site-url: https://softwaresaved.github.io/word-explainer/
-  description: "Translations for DRTPs - explaining what we do with the 1000 most common words"
+  description: "Translations for DRTPs - explaining what we do with the 1000 most used words"
   favicon: assets/logos/favicon.png
   page-navigation: true
   back-to-top-navigation: true
@@ -62,7 +62,7 @@ website:
 
   twitter-card:
     title: Word Explainer for Wonder-Driven Computer People
-    description: Using the 1000 most common words to explain research software
+    description: Using the 1000 most used words to explain research software
     card-style: summary_large_image
     image: assets/logos/logo-large-twitter-card.png
 
