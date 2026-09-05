@@ -1,0 +1,16 @@
+---
+title: Digital Research Technical Professional
+subtitle: Wonder-driven computer person
+description: When we look around the world, we often wonder why things are the way they are or how they work. Sometimes these are little questions, other times they are big questions. To find the answers to these questions, we use computers. We write steps for computers, plan how we can use the computers and play with computers to push beyond what we know and discover more about the world. What we build as wonder-driven computer people is not the same as other computer people, because the systems we build are for answering questions about the world around us. These systems need to be built such that other wonder-driven-people can repeat what we have done to be sure that what we understand is sound. By building on what is already there, we can learn even more about this world!
+image: ../../coming_soon.png
+---
+
+## {{< meta subtitle >}}
+
+::: {.column-margin}
+
+![](../../coming_soon.png){fig-align="center" fig-alt="placeholder coming soon image"}
+
+:::
+
+{{< meta description >}}
