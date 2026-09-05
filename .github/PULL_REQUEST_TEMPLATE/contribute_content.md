@@ -4,6 +4,10 @@
 
 ### Type of contribution
 
+> [!TIP]
+> **New to contributing?** See the [Contributing Guide](../CONTRIBUTING.md)
+> for instructions on how to create a new entry using `create.py`.
+
 #### For Terms (i.e. words we use)
 
 - [ ] Add a new term
