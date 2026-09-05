@@ -1,6 +1,6 @@
 ---
 title: Manager
-subtitle: A person who manages other people
+subtitle: Team Machine Driver
 description: A person who helps a group of people work well together. They plan what work needs to be done, give jobs to people, and make sure everything stays on track.
 image: ../../coming_soon.png
 ---
