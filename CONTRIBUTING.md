@@ -35,8 +35,6 @@ TL;DR - be kind, be respectful, and be constructive. We are all here because we 
 
 There is no contribution too small. Here are the ways you can get involved:
 
-CHECK LINKS ONCE MERGED TO MAIN
-
 | Contribution                     | How                                                                                |
 | -------------------------------- | ---------------------------------------------------------------------------------- |
 | Suggest a new term or role       | [Open an issue](https://github.com/softwaresaved/word-explainer/issues/new/choose) |
