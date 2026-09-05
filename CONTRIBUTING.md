@@ -71,7 +71,7 @@ Each entry is a folder containing a single `index.qmd` file. Please do not add t
 
 ## The Up-Goer Five Rule
 
-All definitions in the Word Explainer must be written using only the **1000 most used words** in English. This is inspired by the [Up-Goer Five](https://xkcd.com/1133/) comic by xkcd, which describes a rocket using only simple words.
+All definitions in the Word Explainer must be written using only the **1000 most used words**. This is inspired by the [Up-Goer Five](https://xkcd.com/1133/) comic by XKCD, which describes a rocket using only simple words.
 
 Before submitting a definition, please check it using the [Up-Goer Five Simple Writer](https://xkcd.com/simplewriter/). Any words highlighted in red are not in the allowed list and should be swapped out for simpler alternatives, like this example
 
@@ -81,6 +81,8 @@ Before submitting a definition, please check it using the [Up-Goer Five Simple W
 > This constraint is intentional. It pushes us to explain complex ideas in
 > plain language that anyone can understand, regardless of their background.
 > Give it a go! It is a surprisingly fun and thought provoking exercise.
+
+When you are happy with your definition, entries are added using the [`create.py` script](#adding-a-new-entry), which validates your definition automatically at parse time. If any words are not in the allowed list, the script will exit with an error listing the offending words before any files are written. Nothing will be created until your definition is valid.
 
 ## Reporting Bugs and Suggesting Improvements
 
@@ -240,15 +242,15 @@ uv run dev-tools/create.py term \
   --verb-desc "Verb description"
 ```
 
-| Flag          | Description                                                  | Required                                               |
-| ------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
-| `-t`          | Term name                                                    | Yes                                                    |
+| Flag          | Description                                                  | Required                                          |
+| ------------- | ------------------------------------------------------------ | ------------------------------------------------- |
+| `-t`          | Term name                                                    | Yes                                               |
 | `-n`          | Noun definition                                              | No. At least one of noun or verb must be provided |
-| `--noun-desc` | Noun description (required if `-n` is provided)              | No                                                     |
+| `--noun-desc` | Noun description (required if `-n` is provided)              | No                                                |
 | `-v`          | Verb definition                                              | No. At least one of noun or verb must be provided |
-| `--verb-desc` | Verb description (required if `-v` is provided)              | No                                                     |
-| `-f`          | Folder name (defaults to term name, lowercased with hyphens) | No                                                     |
-| `-o`          | Override an existing entry                                   | No                                                     |
+| `--verb-desc` | Verb description (required if `-v` is provided)              | No                                                |
+| `-f`          | Folder name (defaults to term name, lowercased with hyphens) | No                                                |
+| `-o`          | Override an existing entry                                   | No                                                |
 
 > [!NOTE]
 > A definition and its description must always be provided together,
@@ -270,6 +272,10 @@ uv run dev-tools/create.py term -t "Term Name" -n "Noun definition" --noun-desc 
 > The `-o` flag will overwrite the existing `index.qmd` file entirely. Make
 > sure you have committed any existing content before using it. This is mainly
 > a convenience feature as mistakes happen.
+>
+> The Up-Goer Five validation still applies when overriding an
+> existing entry. The script will reject invalid words before any files
+> are written.
 
 ## Repository Structure
 

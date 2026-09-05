@@ -11,8 +11,11 @@ This script generates the directory structure and ``index.qmd`` file for a
 new term or role entry, populated from a Jinja template. It must be run from
 the project root directory (the folder containing ``words/``).
 
-The script is managed by ``uv``, which handles dependency installation
-automatically — no manual ``pip install`` is required.
+The script is managed by ``uv``, which handles dependency management
+automatically.
+
+The up goer five contents are validated against the words from:
+https://xkcd.com/simplewriter/words.js. These are stored in ``valid_words.txt``
 
 Usage
 -----
@@ -21,15 +24,21 @@ provides more information.
 
 Notes
 -----
-- All definitions must use only the 1000 most used words, following
-  the Up-Goer Five convention. Check your definition at
-  https://xkcd.com/simplewriter/
+- All definitions are automatically validated against the Up-Goer Five word
+  list at parse time. If a definition contains invalid words, the script will
+  exit with an error listing the offending words before any files are written.
+  The ``valid_words.txt`` file must be present in the project root for
+  validation to work.
+- We recommend drafting your definition using the
+  `Up-Goer Five Simple Writer <https://xkcd.com/simplewriter/>`_ before running
+  the script — it gives a more visual and iterative experience than a CLI
+  error message.
 - For a full list of options, run ``uv run dev-tools/create.py --help`` or
   ``uv run dev-tools/create.py <command> --help``.
 """
 
 from enum import StrEnum
-from typing import Annotated
+from typing import Annotated, Callable
 
 import typer
 from jinja2 import Environment, FileSystemLoader
@@ -73,6 +82,18 @@ def get_template_dir() -> Path:
     return Path.cwd() / "dev-tools" / "templates"
 
 
+def get_valid_words_path() -> Path:
+    """Return the path to valid up goer five words
+
+    Templates are expected to live at ``dev-tools/valid_words.txt`` relative to
+    the project root.
+
+    Returns:
+        Path: Absolute path to the ``valid_words.txt`` file
+    """
+    return Path.cwd() / "dev-tools" / "valid_words.txt"
+
+
 class WordType(StrEnum):
     ROLES = "roles"
     """The type of Word Explainer entry to create.
@@ -102,14 +123,171 @@ def load_template(word_type: WordType):
     )
 
 
+def load_valid_words(valid_words_path: Path) -> frozenset[str]:
+    """Load the set of valid Up-Goer Five words from a file.
+
+    The file is expected to contain words separated by ``|`` characters on a
+    single line. Each word is stripped of whitespace before being added to the
+    set.
+
+    Args:
+        valid_words_path (Path): Path to the ``valid_words.txt`` file.
+
+    Returns:
+        frozenset[str]: An immutable set of valid words for fast membership
+        lookup. A ``frozenset`` is used over a ``set`` as the word list is
+        read-only after loading.
+
+    Raises:
+        FileNotFoundError: If the file does not exist at the given path.
+    """
+    return frozenset(
+        word.strip()
+        for word in valid_words_path.read_text(encoding="utf-8").split("|")
+        if word.strip()
+    )
+
+
+def find_invalid_words(text: str, valid_words: frozenset[str]) -> list[str]:
+    """Identify words in ``text`` that are not in the Up-Goer Five word list.
+
+    Comparison is case-insensitive. Punctuation attached to words
+    (e.g. trailing commas, full stops, or apostrophes in contractions) is
+    stripped before lookup so that ``"running,"`` and ``"running"`` are
+    treated as the same word.
+
+    Args:
+        text (str): The text to validate.
+        valid_words (frozenset[str]): The set of valid words loaded by
+            :func:`load_valid_words`.
+
+    Returns:
+        list[str]: A list of unique invalid words found in ``text``,
+        preserving the order in which they first appear. Returns an empty
+        list if all words are valid.
+    """
+    seen: set[str] = set()
+    invalid: list[str] = []
+
+    for raw_word in text.split():
+        cleaned = raw_word.strip(".,!?;:\"'()-").lower()
+
+        if not cleaned:
+            continue
+
+        # Split hyphenated words and validate each part independently
+        # e.g. "wonder-driven" → ["wonder", "driven"]
+        parts = cleaned.split("-")
+
+        for part in parts:
+            if not part:
+                # Guard against leading/trailing hyphens e.g. "--option"
+                continue
+
+            if part not in valid_words and part not in seen:
+                seen.add(part)
+                invalid.append(part)
+
+    return invalid
+
+
+def make_up_goer_five_callback() -> Callable[[typer.Context, str | None], str | None]:
+    """Create a typer callback that validates a string against the Up-Goer Five word list.
+
+    Returns a callback suitable for use with ``typer.Option(..., callback=...)``.
+    The callback is a no-op if the value is ``None``, allowing it to be safely
+    used on optional parameters.
+
+    Args:
+        valid_words_path (Path): Path to the ``valid_words.txt`` file.
+            Defaults to ``valid_words.txt`` in the current working directory.
+
+    Returns:
+        Callable[[str | None], str | None]: A typer-compatible callback that
+        raises :exc:`typer.BadParameter` if the value contains words not in
+        the Up-Goer Five word list, or returns the value unchanged if valid.
+
+    Raises:
+        FileNotFoundError: If ``valid_words_path`` does not exist when the
+            callback is first invoked.
+
+    Example:
+        .. code-block:: python
+
+            up_goer_callback = make_up_goer_five_callback()
+
+            def role(
+                description: Annotated[
+                    str,
+                    typer.Option("-d", callback=up_goer_callback),
+                ],
+            ) -> None:
+                ...
+    """
+    valid_words_path: Path = get_valid_words_path()
+    # Load once at callback creation time rather than on every invocation
+    valid_words: frozenset[str] = load_valid_words(valid_words_path)
+
+    def callback(
+        ctx: typer.Context,
+        value: str | None,
+    ) -> str | None:
+        """Validate a single CLI parameter value against the Up-Goer Five word list.
+
+        Args:
+            ctx (typer.Context): The typer context for the current command.
+                Unused but required by the typer callback signature.
+            param (typer.CallbackParam): The parameter being validated.
+                Unused but required by the typer callback signature.
+            value (str | None): The value to validate. If ``None``, the
+                callback returns immediately without validation.
+
+        Returns:
+            str | None: The original value, unchanged, if valid or ``None``.
+
+        Raises:
+            typer.BadParameter: If ``value`` contains words not in the
+                Up-Goer Five word list.
+        """
+        if ctx.resilient_parsing:
+            return
+
+        if value is None:
+            return value
+
+        invalid_words = find_invalid_words(value, valid_words)
+        if invalid_words:
+            raise typer.BadParameter(
+                "Contains words not in the Up-Goer Five word list: "
+                + f"{', '.join(invalid_words)}\n"
+                + "Check your definition at https://xkcd.com/simplewriter/"
+            )
+        return value
+
+    return callback
+
+
+UP_GOER_CALLBACK = make_up_goer_five_callback()
+
+
 @app.command()
 def role(
     role_name: Annotated[str, typer.Option("-r", help="Role name")],
     up_goer_five_name: Annotated[
-        str, typer.Option("-u", help="Short Up Goer Five version of the name")
+        str,
+        typer.Option(
+            "-u",
+            help="Short Up Goer Five version of the name",
+            callback=UP_GOER_CALLBACK,
+        ),
     ],
     description: Annotated[
-        str, typer.Option("-d", help="Long description explaining the role")
+        str,
+        typer.Option(
+            "-d",
+            help="Long description explaining the role",
+            callback=UP_GOER_CALLBACK,
+        ),
     ],
     folder_name: Annotated[
         str | None, typer.Option("-f", help="Name of folder to create in src")
@@ -132,8 +310,9 @@ def role(
         role_name (str): The full name of the role
             (e.g. ``"Research Software Engineer"``).
         up_goer_five_name (str): A short Up-Goer Five description of the role
+            Validated automatically against ``valid_words.txt`` at parse time.
         description (str): A longer description explaining the role in more
-            detail.
+            detail. Validated automatically against ``valid_words.txt`` at parse time.
         folder_name (str, optional): The name of the folder to create under
             ``words/roles/``. Defaults to ``role_name`` lowercased with
             spaces replaced by hyphens
@@ -145,6 +324,9 @@ def role(
         FileExistsError: If the target directory already exists and
             ``override`` is ``False``.
         FileNotFoundError: If the script is not run from the project root.
+        typer.BadParameter: If ``up_goer_five_name`` or ``description`` contain
+            words not in the Up-Goer Five word list. The error message lists the
+            offending words and links to the Simple Writer.
     """
     if folder_name is None:
         folder_name = role_name.replace(" ", "-").lower()
@@ -171,16 +353,36 @@ def role(
 def term(
     term_name: Annotated[str, typer.Option("-t", help="Name of terminology")],
     noun_def: Annotated[
-        str | None, typer.Option("-n", help="Noun definition of the term")
+        str | None,
+        typer.Option(
+            "-n",
+            help="Noun definition of the term",
+            callback=UP_GOER_CALLBACK,
+        ),
     ] = None,
     noun_description: Annotated[
-        str | None, typer.Option("--noun-desc", help="Noun description of the term")
+        str | None,
+        typer.Option(
+            "--noun-desc",
+            help="Noun description of the term",
+            callback=UP_GOER_CALLBACK,
+        ),
     ] = None,
     verb_def: Annotated[
-        str | None, typer.Option("-v", help="Verb definition of the term")
+        str | None,
+        typer.Option(
+            "-v",
+            help="Verb definition of the term",
+            callback=UP_GOER_CALLBACK,
+        ),
     ] = None,
     verb_description: Annotated[
-        str | None, typer.Option("--verb-desc", help="Verb description of the term")
+        str | None,
+        typer.Option(
+            "--verb-desc",
+            help="Verb description of the term",
+            callback=UP_GOER_CALLBACK,
+        ),
     ] = None,
     folder_name: Annotated[
         str | None, typer.Option("-f", help="Name of folder to be created in src")
@@ -204,14 +406,14 @@ def term(
         term_name (str): The name of the term (e.g. ``"Version Control"``).
         noun_def (str, optional): The noun definition of the term, using only
             the 1000 most common English words. Required if
-            ``noun_description`` is provided.
+            ``noun_description`` is provided.  Validated automatically against ``valid_words.txt`` at parse time.
         noun_description (str, optional): A longer noun description of the
-            term. Required if ``noun_def`` is provided.
+            term. Required if ``noun_def`` is provided.  Validated automatically against ``valid_words.txt`` at parse time.
         verb_def (str, optional): The verb definition of the term, using only
             the 1000 most common English words. Required if
-            ``verb_description`` is provided.
+            ``verb_description`` is provided.  Validated automatically against ``valid_words.txt`` at parse time.
         verb_description (str, optional): A longer verb description of the
-            term. Required if ``verb_def`` is provided.
+            term. Required if ``verb_def`` is provided.  Validated automatically against ``valid_words.txt`` at parse time.
         folder_name (str, optional): The name of the folder to create under
             ``words/terms/``. Defaults to ``term_name`` lowercased with
             spaces replaced by hyphens
@@ -226,6 +428,10 @@ def term(
         FileExistsError: If the target directory already exists and
             ``override`` is ``False``.
         FileNotFoundError: If the script is not run from the project root.
+        typer.BadParameter: If any of ``noun_def``, ``noun_description``,
+            ``verb_def``, or ``verb_description`` contain words not in the
+            Up-Goer Five word list. The error message lists the offending words
+            and links to the Simple Writer.
     """
     is_in_root_dir()
     if folder_name is None:
