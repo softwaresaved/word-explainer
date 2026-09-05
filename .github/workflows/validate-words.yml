@@ -1,0 +1,27 @@
+name: Validate Up-Goer Five Words
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+        paths:
+            - "words/**"
+    pull_request:
+        branches:
+            - main
+        paths:
+            - "words/**"
+
+jobs:
+    validate:
+        name: Validate Up-Goer Five compliance
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+            - name: Install uv
+              uses: astral-sh/setup-uv@v7
+            - name: Run validation
+              run: uv run dev-tools/validate.py
