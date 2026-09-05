@@ -112,11 +112,16 @@ def find_invalid_words(text: str, valid_words: frozenset[str]) -> list[str]:
     """
     seen: set[str] = set()
     invalid: list[str] = []
-
     for raw_word in text.split():
-        cleaned = raw_word.strip(".,!?;:\"'()-").lower()
+        # Remove emojis and other non-ASCII characters, keep only letters/numbers/hyphens
+        cleaned = re.sub(r"[^\w\-']", "", raw_word).lower()
+        cleaned = cleaned.strip(".,!?;:\"'()-").lower()
 
         if not cleaned:
+            continue
+
+        # Skip if word is purely numeric
+        if cleaned.isdigit():
             continue
 
         # Split hyphenated compounds and validate each part independently
@@ -124,9 +129,18 @@ def find_invalid_words(text: str, valid_words: frozenset[str]) -> list[str]:
         for part in parts:
             if not part:
                 continue
-            if part not in valid_words and part not in seen:
-                seen.add(part)
-                invalid.append(part)
+
+            # Skip if part is purely numeric
+            if part.isdigit():
+                continue
+
+            # Check if word is in valid words
+            if part in valid_words or part in seen:
+                continue
+
+            # Word is invalid
+            seen.add(part)
+            invalid.append(part)
 
     return invalid
 
@@ -238,6 +252,51 @@ def parse_term_sections(content: str) -> list[dict[str, str]]:
     return sections
 
 
+def parse_about_page(content: str) -> str:
+    """Extract markdown content from about/index.qmd, excluding images and tables.
+
+    Removes:
+    - YAML front matter
+    - Image syntax including curly bracket attributes: ![alt](url){...}
+    - Link URLs (keeps display text): [text](url) → text
+    - Markdown tables (detected by pipe-delimited rows)
+
+    Args:
+        content (str): The full text content of the ``about/index.qmd`` file.
+
+    Returns:
+        str: The cleaned markdown content ready for word validation.
+    """
+    # Remove YAML front matter
+    content = re.sub(r"^---\n.*?\n---\n", "", content, flags=re.DOTALL)
+
+    # Remove image syntax with optional curly bracket attributes
+    # Matches: ![alt](url) or ![alt](url){fig-alt="..." fig-align="..."}
+    content = re.sub(r"!\[([^\]]*)\]\([^)]+\)(?:\{[^}]*\})?", "", content)
+
+    # Extract link display text, discard URLs: [text](url) → text
+    content = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", content)
+
+    # Remove markdown tables: match lines that are pipe-delimited
+    # This includes header rows, separator rows (|---|), and data rows
+    lines = content.split("\n")
+    filtered_lines = []
+    for line in lines:
+        # Check if line is part of a table (contains pipes and looks like table syntax)
+        stripped = line.strip()
+        if stripped and "|" in stripped:
+            # Check if it's a separator row (|---|) or data row with pipes
+            if re.match(r"^\s*\|[\s\-|]+\|\s*$", line) or (
+                stripped.startswith("|") and stripped.endswith("|")
+            ):
+                continue  # Skip table rows
+        filtered_lines.append(line)
+
+    content = "\n".join(filtered_lines)
+
+    return content
+
+
 def validate_role(
     qmd_path: Path,
     valid_words: frozenset[str],
@@ -306,8 +365,39 @@ def validate_term(
                 label = f"{word_type}: {field_name}"
                 errors.append(
                     f"  [{label}] Invalid words: {', '.join(invalid)}\n"
-                    f"    Text: {field_value[:80]}{'...' if len(field_value) > 80 else ''}"
+                    + f"    Text: {field_value[:80]}{'...' if len(field_value) > 80 else ''}"
                 )
+
+    return errors
+
+
+def validate_about_page(
+    qmd_path: Path,
+    valid_words: frozenset[str],
+) -> list[str]:
+    """Validate the Up-Goer Five compliance of about/index.qmd.
+
+    Checks all markdown content (excluding images, link URLs, and tables)
+    against the valid word list.
+
+    Args:
+        qmd_path (Path): Path to the ``about/index.qmd`` file.
+        valid_words (frozenset[str]): The set of valid words.
+
+    Returns:
+        list[str]: A list of human-readable error strings. Empty if all
+        content is valid.
+    """
+    content = qmd_path.read_text(encoding="utf-8")
+    cleaned_content = parse_about_page(content)
+    errors: list[str] = []
+
+    invalid = find_invalid_words(cleaned_content, valid_words)
+    if invalid:
+        errors.append(
+            f"  [about content] Invalid words: {', '.join(invalid)}\n"
+            + f"    Text: {cleaned_content[:80]}{'...' if len(cleaned_content) > 80 else ''}"
+        )
 
     return errors
 
@@ -493,6 +583,7 @@ def validate(
 
     roles_dir = words_dir / "roles"
     terms_dir = words_dir / "terms"
+    about_path = Path.cwd() / "about" / "index.qmd"
 
     if not roles_dir.is_dir() or not terms_dir.is_dir():
         typer.echo("Error: roles or terms directories are not directories")
@@ -509,6 +600,11 @@ def validate(
         errors = validate_term(qmd_path, valid_words)
         if errors:
             all_errors[qmd_path] = errors
+
+    if about_path.is_file():
+        errors = validate_about_page(about_path, valid_words)
+        if errors:
+            all_errors[about_path] = errors
 
     report_results(all_errors, words_dir)
 

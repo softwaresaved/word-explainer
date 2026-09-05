@@ -7,11 +7,13 @@ on:
             - main
         paths:
             - "words/**"
+            - "about/**"
     pull_request:
         branches:
             - main
         paths:
             - "words/**"
+            - "about/**"
 
 jobs:
     validate:

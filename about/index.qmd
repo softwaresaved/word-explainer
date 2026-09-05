@@ -1,20 +1,54 @@
 ---
 title: "About the Word Explainer"
-format:
-  html:
-    page-layout: full
 comments: false
 ---
 
-## How did it come about?
+## What is this?
 
-CW26
+As wonder-driven computer people, we use computers to understand the world and learn as much as we can. A lot of people do not understand what we do. Even other wonder-driven people :( So, we want to explain what we do!
 
+We play an important part in making it possible for other wonder-driven people to discover more about us and the world we live in. To start that conversation, we first need to have the words to explain what we do in a way that anyone can follow and ask questions. A big part of this is helping them understand how being wonder-driven changes the way we work with computers, and how that makes us different from other computer people. And by anyone, we mean everyone. From the not computer people we work with, those that give wonder-driven people the money to discover more about the world, our families, or anyone we meet on the street.
 
-## Contributing
+### Why is written in a strange way?
 
-How it works? Instructions on how people can interact with the site
+We are only using the ten hundred most used words! By only using simple words, we have to think hard to get to the bottom about what something means. This is not as easy as it sounds. Below shows how hard it is to state what we do.
 
-## Give it a go!
+![](../simple-writer-demo.gif){fig-alt="Simple writer demo" fig-align="center"}
 
-[simple writer](https://xkcd.com/simplewriter/)
+You can try it out too at the [simple writer](https://xkcd.com/simplewriter/)! If you're short of an idea of what to talk about, try explaining what you do in your free time or a problem you're working on.
+
+## What can I do with this?
+
+Almost anything! We just ask that you follow [this way of sharing](https://creativecommons.org/licenses/by/4.0/). It lets you share, use again, and change these things as you would like, as long as you keep our names and don't get us in trouble if this isn't quite right.
+
+### How can I use this? Or make this better?
+
+This is to help us think more simply and clearly about what we do and how we do it (while having lots of fun!) One way is to use it when talking to children or people that do not work in the same area as us. The are many other ways it can be used. All we need to do is to imagine!
+
+If you have thought of an interesting way to use it, let us know! If you [suggest it on this](https://github.com/softwaresaved/word-explainer/issues/new), we can see how we could add it. We are always looking for ways to make it better.
+
+If you would like to help make this better, you can add a new way to explain your job or important things to explain to help people. If you find something you don't agree with, you can also suggest a change. [Check this out to find out more about making this better.](https://github.com/softwaresaved/word-explainer?tab=contributing-ov-file)
+
+We want as many people to add to this so that it what we all think, not just what one person thinks. Each page also allows you to put 👍 or 👎 and to leave what you think.
+
+## How did this come about?
+
+Every year we [wonder-driven computer people gather together to think of ways to fix the problems we face](https://www.software.ac.uk/collaborations-workshops). This started life at the [2026 gathering](https://www.software.ac.uk/workshop/collaborations-workshop-2026-cw26). We worked together to create ways to explain the jobs and words we chose.
+
+These are the people who help to create this.
+
+| Name                                                       | Role                                                                |
+|------------------------------------------------------------|---------------------------------------------------------------------|
+| [Hui Ling Wong](https://github.com/wong-hl/)               | 🤔 Ideas, 🔬 Research 🖋 Content, 📆 Project Management             |
+| [Saranjeet Kaur](https://github.com/SaranjeetKaur)         | 🖋 Content                                                          |
+| [Loïc Lannelongue](http://www.lannelongue-group.org)       | 📆 Project Management                                               |
+| [Paddy McCann](https://orcid.org/0000-0002-9324-2775)      | 🖋 Content, 🤔 Ideas, 🔬 Research                                   |
+| [Neil Chue Hong](http://www.software.ac.uk)                | 🖋 Content, 🔬 Research, 🤔 Ideas                                   |
+| [Colin Sauze](https://colinsauze.github.io/)               | 🤔 Ideas, 🔬 Research                                               |
+| [Sofía Miñano](http://sfmig.github.io)                     | 🤔 Ideas, 🔬 Research, 🖋 Content                                   |
+| [Stephan Druskat](http://sdruskat.net)                     | 🤔 Ideas, 🔬 Research, 💻 Code                                      |
+| [Joe Shingleton](https://github.com/jshng-glasgow)         | 🤔 Ideas, 🔬 Research, 🖋 Content, 👀 Review                        |
+| [Rachael Stickland](https://github.com/RayStick)           | 🤔 Ideas, 🔬 Research, 🖋 Content, 👀 Review, 📆 Project Management |
+| [Tom Bland](https://github.com/tsmbland)                   | 🤔 Ideas, 🔬 Research, 🖋 Content, 👀 Review                        |
+| [Piriyan Karu](https://github.com/ipiriyan2002)            | 🤔 Ideas, 🔬 Research, 🖋 Content                                   |
+| [Sadie L. Bartholomew](http://sadielbartholomew.github.io) | 🤔 Ideas, 🔬 Research, 🖋 Content                                   |
