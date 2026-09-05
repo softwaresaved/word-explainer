@@ -15,7 +15,7 @@ We are only using the ten hundred most used words! By only using simple words, w
 
 ![](../simple-writer-demo.gif){fig-alt="Simple writer demo" fig-align="center"}
 
-You can try it out too at the [simple writer](https://xkcd.com/simplewriter/)! If you're short of an idea of what to talk about, try explaining what you do in your free time or a problem you're working on.
+You can try it out too at the [simple writer](https://xkcd.com/simplewriter/)! If you are short of an idea of what to talk about, try explaining what you do in your free time or a problem you're working on.
 
 ## What can I do with this?
 
