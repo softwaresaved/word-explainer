@@ -51,8 +51,10 @@ website:
         href: about/index.qmd
 
   page-footer:
-    left: |
-      Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+    left:
+      - text: "Contributing"
+        aria-label: "Contributing Guide"
+        href: contributing/index.qmd
     right:
       - text: "License"
         aria-label: "License Details"
@@ -89,3 +91,7 @@ execute:
 
 language:
   search-text-placeholder: Search
+
+filters:
+  - dev-tools/filters/github-callouts.lua
+  - dev-tools/filters/console-codeblock.lua

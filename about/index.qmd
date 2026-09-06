@@ -13,7 +13,7 @@ We play an important part in making it possible for other wonder-driven people t
 
 We are only using the ten hundred most used words! By only using simple words, we have to think hard to get to the bottom about what something means. This is not as easy as it sounds. Below shows how hard it is to state what we do.
 
-![](../simple-writer-demo.gif){fig-alt="Simple writer demo" fig-align="center"}
+![](../assets/images/simple-writer-demo.gif){fig-alt="Simple writer demo" fig-align="center"}
 
 You can try it out too at the [simple writer](https://xkcd.com/simplewriter/)! If you are short of an idea of what to talk about, try explaining what you do in your free time or a problem you are working on.
 

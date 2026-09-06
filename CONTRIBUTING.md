@@ -55,7 +55,7 @@ distinguish between two types of entries:
 
 Both live in the `words/` directory. For example,
 
-```
+```text
 words/
 ├── roles/
 │   └── research-software-engineer/
@@ -73,7 +73,7 @@ All definitions in the Word Explainer must be written using only the **1000 most
 
 Before submitting a definition, please check it using the [Up-Goer Five Simple Writer](https://xkcd.com/simplewriter/). Any words highlighted in red are not in the allowed list and should be swapped out for simpler alternatives, like this example
 
-![simple writer demo](simple-writer-demo.gif)
+![simple writer demo](https://softwaresaved.github.io/word-explainer/assets/images/simple-writer-demo.gif)
 
 > [!NOTE]
 > This constraint is intentional. It pushes us to explain complex ideas in
@@ -277,7 +277,7 @@ uv run dev-tools/create.py term -t "Term Name" -n "Noun definition" --noun-desc 
 
 ## Repository Structure
 
-```
+```text
 word-explainer/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/        # Issue form templates

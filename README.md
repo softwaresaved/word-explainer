@@ -1,6 +1,6 @@
 # Word Explainer for Wonder-Driven Computer People
 
-![Animation showing the use of Up Goer Five editor to define a scientist or research software engineer.](simple-writer-demo.gif)
+![Animation showing the use of Up Goer Five editor to define a scientist or research software engineer.](assets/images/simple-writer-demo.gif)
 
 ## Explaining Work with Computers to Find Things Out
 
