@@ -1,5 +1,7 @@
 # Word Explainer for Wonder-Driven Computer People
 
+[![Validate Up-Goer Five Words](https://github.com/softwaresaved/word-explainer/actions/workflows/validate-words.yml/badge.svg)](https://github.com/softwaresaved/word-explainer/actions/workflows/validate-words.yml) [![Quarto Publish](https://github.com/softwaresaved/word-explainer/actions/workflows/publish.yml/badge.svg)](https://github.com/softwaresaved/word-explainer/actions/workflows/publish.yml)
+
 ![Animation showing the use of Up Goer Five editor to define a scientist or research software engineer.](assets/images/simple-writer-demo.gif)
 
 ## Explaining Work with Computers to Find Things Out
