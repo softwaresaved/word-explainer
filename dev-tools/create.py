@@ -272,11 +272,12 @@ UP_GOER_CALLBACK = make_up_goer_five_callback()
 
 @app.command()
 def role(
-    role_name: Annotated[str, typer.Option("-r", help="Role name")],
+    role_name: Annotated[str, typer.Option("-r", "--role-name", help="Role name")],
     up_goer_five_name: Annotated[
         str,
         typer.Option(
             "-u",
+            "--up-goer-five-name",
             help="Short Up Goer Five version of the name",
             callback=UP_GOER_CALLBACK,
         ),
@@ -285,15 +286,20 @@ def role(
         str,
         typer.Option(
             "-d",
+            "--description",
             help="Long description explaining the role",
             callback=UP_GOER_CALLBACK,
         ),
     ],
     folder_name: Annotated[
-        str | None, typer.Option("-f", help="Name of folder to create in src")
+        str | None,
+        typer.Option("-f", "--folder-name", help="Name of folder to create in src"),
     ] = None,
     override: Annotated[
-        bool, typer.Option("-o", help="Option to override existing folder/files")
+        bool,
+        typer.Option(
+            "-o", "--override", help="Option to override existing folder/files"
+        ),
     ] = False,
 ) -> None:
     """Create a new role entry under ``words/roles/``.
@@ -351,11 +357,14 @@ def role(
 
 @app.command()
 def term(
-    term_name: Annotated[str, typer.Option("-t", help="Name of terminology")],
+    term_name: Annotated[
+        str, typer.Option("-t", "--term-name", help="Name of terminology")
+    ],
     noun_def: Annotated[
         str | None,
         typer.Option(
             "-n",
+            "--noun-def",
             help="Noun definition of the term",
             callback=UP_GOER_CALLBACK,
         ),
@@ -372,6 +381,7 @@ def term(
         str | None,
         typer.Option(
             "-v",
+            "--verb-def",
             help="Verb definition of the term",
             callback=UP_GOER_CALLBACK,
         ),
@@ -385,10 +395,14 @@ def term(
         ),
     ] = None,
     folder_name: Annotated[
-        str | None, typer.Option("-f", help="Name of folder to be created in src")
+        str | None,
+        typer.Option("-f", "--folder-name", help="Name of folder to be created in src"),
     ] = None,
     override: Annotated[
-        bool, typer.Option("-o", help="Option to override existing folder/files")
+        bool,
+        typer.Option(
+            "-o", "--override", help="Option to override existing folder/files"
+        ),
     ] = False,
 ) -> None:
     """Create a new term entry under ``words/terms/``.
