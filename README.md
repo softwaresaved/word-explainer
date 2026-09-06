@@ -16,7 +16,7 @@ If you have thought of an interesting way to use it, let us know! If you [sugges
 
 If you would like to help make this better, you can add a new way to explain your job or important things to explain to help people. If you find something you don't agree with, you can also suggest a change. [Check this out to find out more about making this better.](https://github.com/softwaresaved/word-explainer?tab=contributing-ov-file)
 
-We want as many people to add to this so that it what we all think, not just what one person thinks. Each page also allows you to put {{< fa thumbs-up >}} or {{< fa thumbs-down >}} and to leave what you think.
+We want as many people to add to this so that it what we all think, not just what one person thinks. Each page also allows you to put 👍 or 👎 and to leave what you think.
 
 ## Things to help you understand
 
