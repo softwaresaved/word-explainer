@@ -4,12 +4,12 @@ name: Create entry from issue
 
 on:
   issues:
-    types: [opened]
+    types: [opened, labeled]
 
 jobs:
   create-entry:
     # Only run for new term or role issues
-    if: contains(github.event.issue.labels.*.name, 'new entry')
+    if: startsWith(github.event.issue.title, '[NEW]')
     runs-on: ubuntu-latest
     permissions:
       contents: write
