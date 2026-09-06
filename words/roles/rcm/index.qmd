@@ -1,6 +1,6 @@
 ---
 title: Research Community Manager
-subtitle: World questioning people grouper
+subtitle: Together Bringer of Wonder-driven People
 description: I bring together a group of people with shared interest to share ideas and talk. My work is to help build up and further the interest of the group by giving a place to meet and talk. A part of my work is to help by making people feel accepted and want to take part in sharing ideas and facts.
 image: rcm.png
 ---

@@ -2,6 +2,7 @@
 title: ""
 pagetitle: "404 Page Not Found"
 page-layout: custom
+comments: false
 ---
 
 ::: {.grid}

@@ -1,6 +1,6 @@
 ---
 title: Research Software Engineer
-subtitle: World Questioning Computer Person
+subtitle: Wonder-driven Computer Steps Writer
 description: I am a person who writes computer work to help find answers for a question. My work is to build and fix computer work used in studies. I make sure they work and share it with other people to use.
 image: rse.png
 ---

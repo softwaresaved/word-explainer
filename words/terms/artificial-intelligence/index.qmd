@@ -1,0 +1,16 @@
+---
+title: Artificial Intelligence
+pagetitle: Artificial Intelligence - term
+categories:
+  - noun
+---
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition}
+
+Very good guessing machine
+
+:::
+
+This uses a lot of information and computer power to spot when the same thing keeps happening over and over again. By finding out how things repeat, it is able to make very good guesses and appears to learn how things work. Because of this, it sometimes thinks things are real when they are not. This is why we need to be careful when using it.
