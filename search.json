@@ -1,66 +1,108 @@
 [
   {
-    "objectID": "about/index.html",
-    "href": "about/index.html",
-    "title": "About the Word Explainer",
+    "objectID": "CONTRIBUTING.html",
+    "href": "CONTRIBUTING.html",
+    "title": "Contributing to the Word Explainer",
     "section": "",
-    "text": "CW26"
+    "text": "Welcome! Thank you for wanting to contribute to the Word Explainer! Whether you are here to add a new term, improve an existing definition, fix a bug, or just have an idea you would like to share - we are glad you are here.\nThis guide will walk you through everything you need to know to get started.\n\n\n\nContributing to the Word Explainer\n\nTable of Contents\nCode of Conduct\nWays to Contribute\nTerms vs. Roles\nThe Up-Goer Five Rule\nReporting Bugs and Suggesting Improvements\nSubmitting a Pull Request\nAdding a New Entry\n\nPrerequisites\nConvenience Features\n\nBuilt-in help\nShell completion\n\nAdding a New Role\nAdding a New Term\nOverriding an Existing Entry\n\nRepository Structure\nLicence\n\n\n\n\n\nWe want the Word Explainer to be a welcoming space for everyone. All contributors are expected to uphold our Code of Conduct, which follows the Contributor Covenant v2.1.\nTL;DR - be kind, be respectful, and be constructive. We are all here because we care about making research software more accessible.\n\n\n\nThere is no contribution too small. Here are the ways you can get involved:\n\n\n\nContribution\nHow\n\n\n\n\nSuggest a new term or role\nOpen an issue\n\n\nReport a bug\nOpen an issue\n\n\nSuggest a website improvement\nOpen an issue\n\n\nImprove an existing definition\nOpen a pull request\n\n\nFix a bug or improve the website\nOpen a pull request\n\n\n\nNot sure whether to open an issue or a pull request? If you have a ready-made definition or fix, open a pull request. If you have an idea but are not sure how to implement it, open an issue and the community can help.\n\n\n\nOne of the things that makes the Word Explainer a little different is that we distinguish between two types of entries:\n\nTerms (i.e. words we use): concepts, tools, or ideas used in research software (e.g. version control, open source, continuous integration).\nRoles (i.e. kinds of people): job titles or functions that people hold in research software (e.g. Research Software Engineer, Data Scientist).\n\nBoth live in the words/ directory. For example,\nwords/\n├── roles/\n│   └── research-software-engineer/\n│       └── index.qmd\n└── terms/\n    └── version-control/\n        └── index.qmd\nEach entry is a folder containing a single index.qmd file. Please do not add these manually. The create.py should be used to scaffold them automatically.\n\n\n\nAll definitions in the Word Explainer must be written using only the 1000 most used words. This is inspired by the Up-Goer Five comic by XKCD, which describes a rocket using only simple words.\nBefore submitting a definition, please check it using the Up-Goer Five Simple Writer. Any words highlighted in red are not in the allowed list and should be swapped out for simpler alternatives, like this example\n\n\n\nsimple writer demo\n\n\n\nThis constraint is intentional. It pushes us to explain complex ideas in plain language that anyone can understand, regardless of their background. Give it a go! It is a surprisingly fun and thought provoking exercise.\n\nWhen you are happy with your definition, entries are added using the create.py script, which validates your definition automatically at parse time. If any words are not in the allowed list, the script will exit with an error listing the offending words before any files are written. Nothing will be created until your definition is valid.\n\n\n\nFound something broken or have an idea? Please use the appropriate issue template so we have all the information we need:\n\nSuggest a new term or role\nReport a bug\nSuggest a general improvement\n\n\n\n\n\nFork the repository\nClone your fork locally\ngit clone https://github.com/&lt;your-username&gt;/word-explainer.git\ncd word-explainer\nCreate a new branch with a descriptive name:\ngit checkout -b add-version-control-term\nMake your changes (see Adding a New Entry below)\nCommit your changes with a clear message:\ngit commit -m \"Add definition for version control\"\nPush to your fork:\ngit push origin add-version-control-term\nOpen a pull request using the appropriate template:\n\nContent contribution: adding or improving a term or role\nBug fix or improvement: fixing a bug or improving the website\n\n\n\n\n\nThe create.py script scaffolds new entries for you, handling the directory structure and Jinja templating automatically.\n\n\nThe script uses uv to manage its dependencies such that a virtual environment is not needed and remains more self-contained. If you do not have uv installed, the uv docs have great installation instructions.\n\nAll commands must be run from the project root directory (the folder containing words/). The script will let you know if you are in the wrong place.\n\n\n\n\n\n\nIf you ever forget the available options, the script has built-in help so you do not need to refer back to this guide. Run --help at any level to see what is available. For example, for top-level help\nuv run dev-tools/create.py --help\n\n Usage: create.py [OPTIONS] COMMAND [ARGS]...\n\n╭─ Options ───────────────────────────────────────────────────────╮\n│ --install-completion          Install completion for the        │\n│                               current shell.                    │\n│ --show-completion             Show completion for the current   │\n│                               shell, to copy it or customize    │\n│                               the installation.                 │\n│ --help                        Show this message and exit.       │\n╰─────────────────────────────────────────────────────────────────╯\n╭─ Commands ──────────────────────────────────────────────────────╮\n│ role                                                            │\n│ term                                                            │\n╰─────────────────────────────────────────────────────────────────╯\nFor command-level help that shows the options for a specific command,\nuv run dev-tools/create.py role --help\nuv run dev-tools/create.py term --help\n\n\n\nThe script also supports shell completion, which lets you tab-complete commands and options directly in your terminal. To set it up, run:\nuv run dev-tools/create.py --install-completion\nIf you would prefer to set it up manually, you can inspect the completion script first:\nuv run dev-tools/create.py --show-completion\n\n\n\n\nuv run dev-tools/create.py role \\\n  -r \"Role Name\" \\\n  -u \"Simple up-goer five name\" \\\n  -d \"Long description explaining the role\"\n\n\n\n\n\n\n\n\nFlag\nDescription\nRequired\n\n\n\n\n-r\nRole name\nYes\n\n\n-u\nUp-Goer Five version of the name\nYes\n\n\n-d\nDescription of the role\nYes\n\n\n-f\nFolder name (defaults to role name, lowercased with hyphens)\nNo\n\n\n-o\nOverride an existing entry\nNo\n\n\n\nExample:\nuv run dev-tools/create.py role \\\n  -r \"Principal Investigator\" \\\n  -u \"Money Getter\" \\\n  -d \"I lead a group of different people who work to understand the world.\"\n\n\n\nTerms can have a noun definition, a verb definition, or both, and at least one must be provided. Each definition must be accompanied by a description.\n# Noun only\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -n \"Noun definition\" \\\n  --noun-desc \"Noun description\"\n\n# Verb only\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -v \"Verb definition\" \\\n  --verb-desc \"Verb description\"\n\n# Both noun and verb\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -n \"Noun definition\" \\\n  --noun-desc \"Noun description\" \\\n  -v \"Verb definition\" \\\n  --verb-desc \"Verb description\"\n\n\n\n\n\n\n\n\nFlag\nDescription\nRequired\n\n\n\n\n-t\nTerm name\nYes\n\n\n-n\nNoun definition\nNo. At least one of noun or verb must be provided\n\n\n--noun-desc\nNoun description (required if -n is provided)\nNo\n\n\n-v\nVerb definition\nNo. At least one of noun or verb must be provided\n\n\n--verb-desc\nVerb description (required if -v is provided)\nNo\n\n\n-f\nFolder name (defaults to term name, lowercased with hyphens)\nNo\n\n\n-o\nOverride an existing entry\nNo\n\n\n\n\nA definition and its description must always be provided together,\n\nNot Allowed: Noun definition without a noun description\nNot Allowed: Noun description without a noun definition\nCorrect: Noun definition and noun description together\n\n\n\n\n\nTo update an existing entry, use the -o flag:\nuv run dev-tools/create.py role -r \"Role Name\" -u \"Simple name\" -d \"Description\" -o\nuv run dev-tools/create.py term -t \"Term Name\" -n \"Noun definition\" --noun-desc \"Description\" -o\n\nThe -o flag will overwrite the existing index.qmd file entirely. Make sure you have committed any existing content before using it. This is mainly a convenience feature as mistakes happen.\nThe Up-Goer Five validation still applies when overriding an existing entry. The script will reject invalid words before any files are written.\n\n\n\n\n\nword-explainer/\n├── .github/\n│   ├── ISSUE_TEMPLATE/        # Issue form templates\n│   └── PULL_REQUEST_TEMPLATE/ # PR templates\n├── _extensions/               # Quarto extensions\n├── a-to-z/                    # A-to-Z index page\n├── about/                     # About page\n├── assets/                    # Static assets (images, CSS)\n├── dev-tools/\n│   ├── create.py              # Script to scaffold new entries\n│   ├── validate.py            # Script to validate up goer five contents\n│   └── templates/             # Jinja templates for terms and roles\n├── words/\n│   ├── roles/                 # Role entries\n│   └── terms/                 # Term entries\n├── _quarto.yml                # Quarto configuration\n├── _brand.yml                 # Brand/theme configuration\n├── index.qmd                  # Homepage\n└── LICENSE                    # CC BY 4.0 licence\n\n\n\nBy contributing to this repository, you agree that your contributions will be shared under the CC BY 4.0 licence. The same licence that covers the rest of the project. This means anyone can share and build upon your contribution, as long as they credit the original authors.\nThank you for taking the time to contribute! Every definition, fix, and idea makes the Word Explainer better for everyone."
   },
   {
-    "objectID": "about/index.html#how-did-it-come-about",
-    "href": "about/index.html#how-did-it-come-about",
-    "title": "About the Word Explainer",
+    "objectID": "CONTRIBUTING.html#table-of-contents",
+    "href": "CONTRIBUTING.html#table-of-contents",
+    "title": "Contributing to the Word Explainer",
     "section": "",
-    "text": "CW26"
+    "text": "Contributing to the Word Explainer\n\nTable of Contents\nCode of Conduct\nWays to Contribute\nTerms vs. Roles\nThe Up-Goer Five Rule\nReporting Bugs and Suggesting Improvements\nSubmitting a Pull Request\nAdding a New Entry\n\nPrerequisites\nConvenience Features\n\nBuilt-in help\nShell completion\n\nAdding a New Role\nAdding a New Term\nOverriding an Existing Entry\n\nRepository Structure\nLicence"
   },
   {
-    "objectID": "about/index.html#contributing",
-    "href": "about/index.html#contributing",
-    "title": "About the Word Explainer",
-    "section": "Contributing",
-    "text": "Contributing\nHow it works? Instructions on how people can interact with the site"
+    "objectID": "CONTRIBUTING.html#code-of-conduct",
+    "href": "CONTRIBUTING.html#code-of-conduct",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "We want the Word Explainer to be a welcoming space for everyone. All contributors are expected to uphold our Code of Conduct, which follows the Contributor Covenant v2.1.\nTL;DR - be kind, be respectful, and be constructive. We are all here because we care about making research software more accessible."
   },
   {
-    "objectID": "about/index.html#give-it-a-go",
-    "href": "about/index.html#give-it-a-go",
-    "title": "About the Word Explainer",
-    "section": "Give it a go!",
-    "text": "Give it a go!\nsimple writer"
+    "objectID": "CONTRIBUTING.html#ways-to-contribute",
+    "href": "CONTRIBUTING.html#ways-to-contribute",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "There is no contribution too small. Here are the ways you can get involved:\n\n\n\nContribution\nHow\n\n\n\n\nSuggest a new term or role\nOpen an issue\n\n\nReport a bug\nOpen an issue\n\n\nSuggest a website improvement\nOpen an issue\n\n\nImprove an existing definition\nOpen a pull request\n\n\nFix a bug or improve the website\nOpen a pull request\n\n\n\nNot sure whether to open an issue or a pull request? If you have a ready-made definition or fix, open a pull request. If you have an idea but are not sure how to implement it, open an issue and the community can help."
   },
   {
-    "objectID": "words/roles/rse/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
-    "href": "words/roles/rse/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
-    "title": "Research Software Engineer",
-    "section": "World Questioning Computer Person",
-    "text": "World Questioning Computer Person\n\n\n\n\n\n\n\nI am a person who writes computer work to help find answers for a question. My work is to build and fix computer work used in studies. I make sure they work and share it with other people to use."
+    "objectID": "CONTRIBUTING.html#terms-vs.-roles",
+    "href": "CONTRIBUTING.html#terms-vs.-roles",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "One of the things that makes the Word Explainer a little different is that we distinguish between two types of entries:\n\nTerms (i.e. words we use): concepts, tools, or ideas used in research software (e.g. version control, open source, continuous integration).\nRoles (i.e. kinds of people): job titles or functions that people hold in research software (e.g. Research Software Engineer, Data Scientist).\n\nBoth live in the words/ directory. For example,\nwords/\n├── roles/\n│   └── research-software-engineer/\n│       └── index.qmd\n└── terms/\n    └── version-control/\n        └── index.qmd\nEach entry is a folder containing a single index.qmd file. Please do not add these manually. The create.py should be used to scaffold them automatically."
+  },
+  {
+    "objectID": "CONTRIBUTING.html#the-up-goer-five-rule",
+    "href": "CONTRIBUTING.html#the-up-goer-five-rule",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "All definitions in the Word Explainer must be written using only the 1000 most used words. This is inspired by the Up-Goer Five comic by XKCD, which describes a rocket using only simple words.\nBefore submitting a definition, please check it using the Up-Goer Five Simple Writer. Any words highlighted in red are not in the allowed list and should be swapped out for simpler alternatives, like this example\n\n\n\nsimple writer demo\n\n\n\nThis constraint is intentional. It pushes us to explain complex ideas in plain language that anyone can understand, regardless of their background. Give it a go! It is a surprisingly fun and thought provoking exercise.\n\nWhen you are happy with your definition, entries are added using the create.py script, which validates your definition automatically at parse time. If any words are not in the allowed list, the script will exit with an error listing the offending words before any files are written. Nothing will be created until your definition is valid."
+  },
+  {
+    "objectID": "CONTRIBUTING.html#reporting-bugs-and-suggesting-improvements",
+    "href": "CONTRIBUTING.html#reporting-bugs-and-suggesting-improvements",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "Found something broken or have an idea? Please use the appropriate issue template so we have all the information we need:\n\nSuggest a new term or role\nReport a bug\nSuggest a general improvement"
+  },
+  {
+    "objectID": "CONTRIBUTING.html#submitting-a-pull-request",
+    "href": "CONTRIBUTING.html#submitting-a-pull-request",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "Fork the repository\nClone your fork locally\ngit clone https://github.com/&lt;your-username&gt;/word-explainer.git\ncd word-explainer\nCreate a new branch with a descriptive name:\ngit checkout -b add-version-control-term\nMake your changes (see Adding a New Entry below)\nCommit your changes with a clear message:\ngit commit -m \"Add definition for version control\"\nPush to your fork:\ngit push origin add-version-control-term\nOpen a pull request using the appropriate template:\n\nContent contribution: adding or improving a term or role\nBug fix or improvement: fixing a bug or improving the website"
+  },
+  {
+    "objectID": "CONTRIBUTING.html#adding-a-new-entry",
+    "href": "CONTRIBUTING.html#adding-a-new-entry",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "The create.py script scaffolds new entries for you, handling the directory structure and Jinja templating automatically.\n\n\nThe script uses uv to manage its dependencies such that a virtual environment is not needed and remains more self-contained. If you do not have uv installed, the uv docs have great installation instructions.\n\nAll commands must be run from the project root directory (the folder containing words/). The script will let you know if you are in the wrong place.\n\n\n\n\n\n\nIf you ever forget the available options, the script has built-in help so you do not need to refer back to this guide. Run --help at any level to see what is available. For example, for top-level help\nuv run dev-tools/create.py --help\n\n Usage: create.py [OPTIONS] COMMAND [ARGS]...\n\n╭─ Options ───────────────────────────────────────────────────────╮\n│ --install-completion          Install completion for the        │\n│                               current shell.                    │\n│ --show-completion             Show completion for the current   │\n│                               shell, to copy it or customize    │\n│                               the installation.                 │\n│ --help                        Show this message and exit.       │\n╰─────────────────────────────────────────────────────────────────╯\n╭─ Commands ──────────────────────────────────────────────────────╮\n│ role                                                            │\n│ term                                                            │\n╰─────────────────────────────────────────────────────────────────╯\nFor command-level help that shows the options for a specific command,\nuv run dev-tools/create.py role --help\nuv run dev-tools/create.py term --help\n\n\n\nThe script also supports shell completion, which lets you tab-complete commands and options directly in your terminal. To set it up, run:\nuv run dev-tools/create.py --install-completion\nIf you would prefer to set it up manually, you can inspect the completion script first:\nuv run dev-tools/create.py --show-completion\n\n\n\n\nuv run dev-tools/create.py role \\\n  -r \"Role Name\" \\\n  -u \"Simple up-goer five name\" \\\n  -d \"Long description explaining the role\"\n\n\n\n\n\n\n\n\nFlag\nDescription\nRequired\n\n\n\n\n-r\nRole name\nYes\n\n\n-u\nUp-Goer Five version of the name\nYes\n\n\n-d\nDescription of the role\nYes\n\n\n-f\nFolder name (defaults to role name, lowercased with hyphens)\nNo\n\n\n-o\nOverride an existing entry\nNo\n\n\n\nExample:\nuv run dev-tools/create.py role \\\n  -r \"Principal Investigator\" \\\n  -u \"Money Getter\" \\\n  -d \"I lead a group of different people who work to understand the world.\"\n\n\n\nTerms can have a noun definition, a verb definition, or both, and at least one must be provided. Each definition must be accompanied by a description.\n# Noun only\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -n \"Noun definition\" \\\n  --noun-desc \"Noun description\"\n\n# Verb only\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -v \"Verb definition\" \\\n  --verb-desc \"Verb description\"\n\n# Both noun and verb\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -n \"Noun definition\" \\\n  --noun-desc \"Noun description\" \\\n  -v \"Verb definition\" \\\n  --verb-desc \"Verb description\"\n\n\n\n\n\n\n\n\nFlag\nDescription\nRequired\n\n\n\n\n-t\nTerm name\nYes\n\n\n-n\nNoun definition\nNo. At least one of noun or verb must be provided\n\n\n--noun-desc\nNoun description (required if -n is provided)\nNo\n\n\n-v\nVerb definition\nNo. At least one of noun or verb must be provided\n\n\n--verb-desc\nVerb description (required if -v is provided)\nNo\n\n\n-f\nFolder name (defaults to term name, lowercased with hyphens)\nNo\n\n\n-o\nOverride an existing entry\nNo\n\n\n\n\nA definition and its description must always be provided together,\n\nNot Allowed: Noun definition without a noun description\nNot Allowed: Noun description without a noun definition\nCorrect: Noun definition and noun description together\n\n\n\n\n\nTo update an existing entry, use the -o flag:\nuv run dev-tools/create.py role -r \"Role Name\" -u \"Simple name\" -d \"Description\" -o\nuv run dev-tools/create.py term -t \"Term Name\" -n \"Noun definition\" --noun-desc \"Description\" -o\n\nThe -o flag will overwrite the existing index.qmd file entirely. Make sure you have committed any existing content before using it. This is mainly a convenience feature as mistakes happen.\nThe Up-Goer Five validation still applies when overriding an existing entry. The script will reject invalid words before any files are written."
+  },
+  {
+    "objectID": "CONTRIBUTING.html#repository-structure",
+    "href": "CONTRIBUTING.html#repository-structure",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "word-explainer/\n├── .github/\n│   ├── ISSUE_TEMPLATE/        # Issue form templates\n│   └── PULL_REQUEST_TEMPLATE/ # PR templates\n├── _extensions/               # Quarto extensions\n├── a-to-z/                    # A-to-Z index page\n├── about/                     # About page\n├── assets/                    # Static assets (images, CSS)\n├── dev-tools/\n│   ├── create.py              # Script to scaffold new entries\n│   ├── validate.py            # Script to validate up goer five contents\n│   └── templates/             # Jinja templates for terms and roles\n├── words/\n│   ├── roles/                 # Role entries\n│   └── terms/                 # Term entries\n├── _quarto.yml                # Quarto configuration\n├── _brand.yml                 # Brand/theme configuration\n├── index.qmd                  # Homepage\n└── LICENSE                    # CC BY 4.0 licence"
+  },
+  {
+    "objectID": "CONTRIBUTING.html#licence",
+    "href": "CONTRIBUTING.html#licence",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "By contributing to this repository, you agree that your contributions will be shared under the CC BY 4.0 licence. The same licence that covers the rest of the project. This means anyone can share and build upon your contribution, as long as they credit the original authors.\nThank you for taking the time to contribute! Every definition, fix, and idea makes the Word Explainer better for everyone."
+  },
+  {
+    "objectID": "words/roles/scientist/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "href": "words/roles/scientist/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "title": "Scientist",
+    "section": "Wonder-driven Person",
+    "text": "Wonder-driven Person\n\n\n\n\n\n\n\nPerson who’s job is to find out new things. They get facts and other things to help them come up with ideas and learn more about one part of the world, like living things, what things are made of, or how things move. They work to understand the world around us, fix problems, and tell other people what they find so everyone can know more."
+  },
+  {
+    "objectID": "words/roles/rcm/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "href": "words/roles/rcm/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "title": "Research Community Manager",
+    "section": "Together Bringer of Wonder-driven People",
+    "text": "Together Bringer of Wonder-driven People\n\n\n\n\n\n\n\nI bring together a group of people with shared interest to share ideas and talk. My work is to help build up and further the interest of the group by giving a place to meet and talk. A part of my work is to help by making people feel accepted and want to take part in sharing ideas and facts."
+  },
+  {
+    "objectID": "words/roles/drtp/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "href": "words/roles/drtp/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "title": "Digital Research Technical Professional",
+    "section": "Wonder-driven computer person",
+    "text": "Wonder-driven computer person\n\n\n\n\n\n\n\nWhen we look around the world, we often wonder why things are the way they are or how they work. Sometimes these are little questions, other times they are big questions. To find the answers to these questions, we use computers. We write steps for computers, plan how we can use the computers and play with computers to push beyond what we know and discover more about the world. What we build as wonder-driven computer people is not the same as other computer people, because the systems we build are for answering questions about the world around us. These systems need to be built such that other wonder-driven-people can repeat what we have done to be sure that what we understand is sound. By building on what is already there, we can learn even more about this world!"
   },
   {
     "objectID": "words/roles/index.html",
     "href": "words/roles/index.html",
     "title": "Kinds of People",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nManager\n\n\nA person who manages other people\n\n\nA person who helps a group of people work well together. They plan what work needs to be done, give jobs to people, and make sure everything stays on track.\n\n\n\n\n\n\n\n\n\n\nPrincipal Investigator\n\n\nMoney-getting for understanding person\n\n\nI lead a group of different people who work to understand the world or people by looking for new facts. My work is to get money to let us do this, and make sure that we do…\n\n\n\n\n\n\n\n\n\n\n\n\nResearch Community Manager\n\n\nWorld questioning people grouper\n\n\nI bring together a group of people with shared interest to share ideas and talk. My work is to help build up and further the interest of the group by giving a place to meet…\n\n\n\n\n\n\n\n\n\n\n\n\nResearch Software Engineer\n\n\nWorld Questioning Computer Person\n\n\nI am a person who writes computer work to help find answers for a question. My work is to build and fix computer work used in studies. I make sure they work and share it…\n\n\n\n\n\n\n\n\n\n\n\n\nScientist\n\n\nSomeone who looks at the world around them and asks questions like, why is it the way it is or how does it work\n\n\nPerson who’s job is to find out new things. They get facts and other things to help them come up with ideas and learn more about one part of the world, like living things…\n\n\n\n\n\n\n\n\n\n\n\n\nSystem Administrator\n\n\nKeeper of Computer Gates and Keys\n\n\nAs the keeper, I manage who can use the computers and what they can do on it. I make sure that everyone can only see the information and the computer power to do their job.…\n\n\n\n\n\nNo matching items\n Back to top"
-  },
-  {
-    "objectID": "words/roles/manager/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
-    "href": "words/roles/manager/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
-    "title": "Manager",
-    "section": "A person who manages other people",
-    "text": "A person who manages other people\n\n\n\n\n\n\n\nA person who helps a group of people work well together. They plan what work needs to be done, give jobs to people, and make sure everything stays on track."
-  },
-  {
-    "objectID": "words/terms/research-institution/index.html",
-    "href": "words/terms/research-institution/index.html",
-    "title": "Research Institution",
-    "section": "",
-    "text": "A place where people work to understand more about the world\n\nA place where people work to understand more about the world (and look for new facts)"
-  },
-  {
-    "objectID": "words/terms/research-institution/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
-    "href": "words/terms/research-institution/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
-    "title": "Research Institution",
-    "section": "",
-    "text": "A place where people work to understand more about the world\n\nA place where people work to understand more about the world (and look for new facts)"
+    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nDigital Research Technical Professional\n\n\nWonder-driven computer person\n\n\nWhen we look around the world, we often wonder why things are the way they are or how they work. Sometimes these are little questions, other times they are big questions. To…\n\n\n\n\n\n\n\n\n\n\n\n\nManager\n\n\nTeam Machine Driver\n\n\nA person who helps a group of people work well together. They plan what work needs to be done, give jobs to people, and make sure everything stays on track.\n\n\n\n\n\n\n\n\n\n\nPrincipal Investigator\n\n\nMoney Getter\n\n\nI lead a group of different people who work to understand the world or people by looking for new facts. My work is to get money to let us do this, and make sure that we do…\n\n\n\n\n\n\n\n\n\n\n\n\nResearch Community Manager\n\n\nTogether Bringer of Wonder-driven People\n\n\nI bring together a group of people with shared interest to share ideas and talk. My work is to help build up and further the interest of the group by giving a place to meet…\n\n\n\n\n\n\n\n\n\n\n\n\nResearch Software Engineer\n\n\nWonder-driven Computer Steps Writer\n\n\nI am a person who writes computer work to help find answers for a question. My work is to build and fix computer work used in studies. I make sure they work and share it…\n\n\n\n\n\n\n\n\n\n\n\n\nScientist\n\n\nWonder-driven Person\n\n\nPerson who’s job is to find out new things. They get facts and other things to help them come up with ideas and learn more about one part of the world, like living things…\n\n\n\n\n\n\n\n\n\n\n\n\nSystem Administrator\n\n\nKeeper of Computer Gates and Keys\n\n\nAs the keeper, I manage who can use the computers and what they can do on it. I make sure that everyone can only see the information and the computer power to do their job.…\n\n\n\n\n\nNo matching items\n Back to top"
   },
   {
     "objectID": "words/terms/university/index.html",
@@ -75,83 +117,6 @@
     "title": "University",
     "section": "",
     "text": "School for students and teachers to learn how to understand and look for new facts\n\nA place where people go after school to learn more and find out new things. It has parts for people who are just starting and parts for people who have gone further. There are teachers and people work to find out new things."
-  },
-  {
-    "objectID": "words/terms/community/index.html",
-    "href": "words/terms/community/index.html",
-    "title": "Community",
-    "section": "",
-    "text": "Group of people who have a shared interest or want or have something the same\n\nA group of people who share things like where they live, what they like, or who they are. They often know each other, help each other, and feel like they are part of the same group."
-  },
-  {
-    "objectID": "words/terms/community/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
-    "href": "words/terms/community/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
-    "title": "Community",
-    "section": "",
-    "text": "Group of people who have a shared interest or want or have something the same\n\nA group of people who share things like where they live, what they like, or who they are. They often know each other, help each other, and feel like they are part of the same group."
-  },
-  {
-    "objectID": "words/terms/index.html",
-    "href": "words/terms/index.html",
-    "title": "Words We Use",
-    "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\nCoffee\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nCollaborations Workshop\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nCommunity\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nData\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nResearch\n\n\n\nnoun\n\nverb\n\n\n\n\n\n\n\n\n\n\n\n\n\nResearch Institution\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nSoftware\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nUniversity\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\nNo matching items\n Back to top"
-  },
-  {
-    "objectID": "words/terms/software/index.html",
-    "href": "words/terms/software/index.html",
-    "title": "Software",
-    "section": "",
-    "text": "Written steps to control a computer wrapped together\n\nSteps that tell a computer what to do and how to do it. Includes all the sets of steps a computer uses, like the main set of steps that runs the computer and other sets of steps people use to do different jobs."
-  },
-  {
-    "objectID": "words/terms/software/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
-    "href": "words/terms/software/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
-    "title": "Software",
-    "section": "",
-    "text": "Written steps to control a computer wrapped together\n\nSteps that tell a computer what to do and how to do it. Includes all the sets of steps a computer uses, like the main set of steps that runs the computer and other sets of steps people use to do different jobs."
-  },
-  {
-    "objectID": "a-to-z/glossary.ejs.html",
-    "href": "a-to-z/glossary.ejs.html",
-    "title": "Word Explainer for Wonder-Driven Computer People",
-    "section": "",
-    "text": "&lt;%\nconst letters = [...new Set(items.map(item =&gt; item.title[0].toUpperCase()))].sort();\n%&gt;\n\n\n&lt;% for (const letter of letters) { %&gt;\n  &lt;%= letter %&gt;\n  \n  &lt;% const letterItems = items.filter(item =&gt; item.title[0].toUpperCase() === letter); %&gt;\n  &lt;% for (const item of letterItems) { %&gt;\n    &lt;%= item.title %&gt;\n    &lt;%= item.description %&gt;\n  &lt;% } %&gt;\n  \n&lt;% } %&gt;\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "a-to-z/index.html",
-    "href": "a-to-z/index.html",
-    "title": "Glossary",
-    "section": "",
-    "text": "C\n  \n  \n  \n    Coffee\n    \n  \n    Collaborations Workshop\n    \n  \n    Community\n    \n  \n  \n\n  D\n  \n  \n  \n    Data\n    \n  \n  \n\n  M\n  \n  \n  \n    Manager\n    A person who helps a group of people work well together. They plan what work needs to be done, give jobs to people, and make sure everything stays on track.\n  \n  \n\n  P\n  \n  \n  \n    Principal Investigator\n    I lead a group of different people who work to understand the world or people by looking for new facts. My work is to get money to let us do this, and make sure that we do it in a good way so that others can learn from it.\n  \n  \n\n  R\n  \n  \n  \n    Research\n    \n  \n    Research Community Manager\n    I bring together a group of people with shared interest to share ideas and talk. My work is to help build up and further the interest of the group by giving a place to meet and talk. A part of my work is to help by making people feel accepted and want to take part in sharing ideas and facts.\n  \n    Research Institution\n    \n  \n    Research Software Engineer\n    I am a person who writes computer work to help find answers for a question. My work is to build and fix computer work used in studies. I make sure they work and share it with other people to use.\n  \n  \n\n  S\n  \n  \n  \n    Scientist\n    Person who's job is to find out new things. They get facts and other things to help them come up with ideas and learn more about one part of the world, like living things, what things are made of, or how things move. They work to understand the world around us, fix problems, and tell other people what they find so everyone can know more.\n  \n    Software\n    \n  \n    System Administrator\n    As the keeper, I manage who can use the computers and what they can do on it. I make sure that everyone can only see the information and the computer power to do their job. Nothing more. This is important when people are sharing one big computer. Only opening the gates and handing over the keys needed to get their job done.\n\nBy being careful about which gates I open and hand the keys to, I keep the people, their information and the computer safe. If anything or anyone that is not allowed to be on the computer, I stop them. When things break, I do my best to figure out what went wrong and to fix it.\n\n  \n  \n\n  U\n  \n  \n  \n    University\n    \n  \n  \n\nNo matching items\n Back to top"
-  },
-  {
-    "objectID": "license.html",
-    "href": "license.html",
-    "title": "License",
-    "section": "",
-    "text": "The content on this website is licensed under the Creative Commons Attribution 4.0 International License.\n\n\n\nShare copy and redistribute the material in any medium or format\nAdapt remix, transform, and build upon the material for any purpose, even commercially\n\n\n\n\n\nAttribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.\nNo additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.\n\n\n\n\nYou do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.\nNo warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.\n\n\n\nIf you use or adapt content from this website please use the following attribution:\n\n[Your Website Name] by [Your Name / Organisation], licensed under CC BY 4.0.\n\n\nFor the full legal text of this license please visit https://creativecommons.org/licenses/by/4.0/legalcode."
-  },
-  {
-    "objectID": "license.html#creative-commons-attribution-4.0-international-cc-by-4.0",
-    "href": "license.html#creative-commons-attribution-4.0-international-cc-by-4.0",
-    "title": "License",
-    "section": "",
-    "text": "The content on this website is licensed under the Creative Commons Attribution 4.0 International License.\n\n\n\nShare copy and redistribute the material in any medium or format\nAdapt remix, transform, and build upon the material for any purpose, even commercially\n\n\n\n\n\nAttribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.\nNo additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.\n\n\n\n\nYou do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.\nNo warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.\n\n\n\nIf you use or adapt content from this website please use the following attribution:\n\n[Your Website Name] by [Your Name / Organisation], licensed under CC BY 4.0.\n\n\nFor the full legal text of this license please visit https://creativecommons.org/licenses/by/4.0/legalcode."
-  },
-  {
-    "objectID": "words/terms/data/index.html",
-    "href": "words/terms/data/index.html",
-    "title": "Data",
-    "section": "",
-    "text": "Numbers and words that can be used to answer questions\n\nPieces of things like numbers, words, pictures, or sounds. People work on these pieces to sort them and give them clear ideas, decide things and fix problems."
-  },
-  {
-    "objectID": "words/terms/data/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
-    "href": "words/terms/data/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
-    "title": "Data",
-    "section": "",
-    "text": "Numbers and words that can be used to answer questions\n\nPieces of things like numbers, words, pictures, or sounds. People work on these pieces to sort them and give them clear ideas, decide things and fix problems."
   },
   {
     "objectID": "words/terms/reserach/index.html",
@@ -175,6 +140,230 @@
     "text": "Research what someone or something does\n\nA way to understand and look for new facts\n\nA planned way of looking into something to find out new things, check if ideas are right, or learn more about it. It means getting facts, writing them down, and working through them so they can help people know what to do. This kind of work can be done to learn new ideas, or to help fix real problems in the world"
   },
   {
+    "objectID": "words/terms/research-institution/index.html",
+    "href": "words/terms/research-institution/index.html",
+    "title": "Research Institution",
+    "section": "",
+    "text": "A place where people work to understand more about the world\n\nA place where people work to understand more about the world (and look for new facts)"
+  },
+  {
+    "objectID": "words/terms/research-institution/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "href": "words/terms/research-institution/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "title": "Research Institution",
+    "section": "",
+    "text": "A place where people work to understand more about the world\n\nA place where people work to understand more about the world (and look for new facts)"
+  },
+  {
+    "objectID": "words/terms/software/index.html",
+    "href": "words/terms/software/index.html",
+    "title": "Software",
+    "section": "",
+    "text": "Written steps to control a computer wrapped together\n\nSteps that tell a computer what to do and how to do it. It has all the sets of steps a computer uses, like the main set of steps that runs the computer and other sets of steps people use to do different jobs."
+  },
+  {
+    "objectID": "words/terms/software/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "href": "words/terms/software/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "title": "Software",
+    "section": "",
+    "text": "Written steps to control a computer wrapped together\n\nSteps that tell a computer what to do and how to do it. It has all the sets of steps a computer uses, like the main set of steps that runs the computer and other sets of steps people use to do different jobs."
+  },
+  {
+    "objectID": "words/terms/index.html",
+    "href": "words/terms/index.html",
+    "title": "Words We Use",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\nArtificial Intelligence\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nCoffee\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nCollaborations Workshop\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nCommunity\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nData\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nResearch\n\n\n\nnoun\n\nverb\n\n\n\n\n\n\n\n\n\n\n\n\n\nResearch Institution\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nSoftware\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\n\n\n\n\nUniversity\n\n\n\nnoun\n\n\n\n\n\n\n\n\n\nNo matching items\n Back to top"
+  },
+  {
+    "objectID": "a-to-z/glossary.ejs.html",
+    "href": "a-to-z/glossary.ejs.html",
+    "title": "Word Explainer for Wonder-Driven Computer People",
+    "section": "",
+    "text": "&lt;%\nconst letters = [...new Set(items.map(item =&gt; item.title[0].toUpperCase()))].sort();\n%&gt;\n\n\n&lt;% for (const letter of letters) { %&gt;\n  &lt;%= letter %&gt;\n  \n  &lt;% const letterItems = items.filter(item =&gt; item.title[0].toUpperCase() === letter); %&gt;\n  &lt;% for (const item of letterItems) { %&gt;\n    &lt;%= item.title %&gt;\n    &lt;%= item.subtitle ? item.subtitle : item.description %&gt;\n  &lt;% } %&gt;\n  \n&lt;% } %&gt;\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "contributing/index.html",
+    "href": "contributing/index.html",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "Welcome! Thank you for wanting to contribute to the Word Explainer! Whether you are here to add a new term, improve an existing definition, fix a bug, or just have an idea you would like to share - we are glad you are here.\nThis guide will walk you through everything you need to know to get started.\n\n\n\nContributing to the Word Explainer\n\nTable of Contents\nCode of Conduct\nWays to Contribute\nTerms vs. Roles\nThe Up-Goer Five Rule\nReporting Bugs and Suggesting Improvements\nSubmitting a Pull Request\nAdding a New Entry\n\nPrerequisites\nConvenience Features\n\nBuilt-in help\nShell completion\n\nAdding a New Role\nAdding a New Term\nOverriding an Existing Entry\n\nRepository Structure\nLicence\n\n\n\n\n\nWe want the Word Explainer to be a welcoming space for everyone. All contributors are expected to uphold our Code of Conduct, which follows the Contributor Covenant v2.1.\nTL;DR - be kind, be respectful, and be constructive. We are all here because we care about making research software more accessible.\n\n\n\nThere is no contribution too small. Here are the ways you can get involved:\n\n\n\nContribution\nHow\n\n\n\n\nSuggest a new term or role\nOpen an issue\n\n\nReport a bug\nOpen an issue\n\n\nSuggest a website improvement\nOpen an issue\n\n\nImprove an existing definition\nOpen a pull request\n\n\nFix a bug or improve the website\nOpen a pull request\n\n\n\nNot sure whether to open an issue or a pull request? If you have a ready-made definition or fix, open a pull request. If you have an idea but are not sure how to implement it, open an issue and the community can help.\n\n\n\nOne of the things that makes the Word Explainer a little different is that we distinguish between two types of entries:\n\nTerms (i.e. words we use): concepts, tools, or ideas used in research software (e.g. version control, open source, continuous integration).\nRoles (i.e. kinds of people): job titles or functions that people hold in research software (e.g. Research Software Engineer, Data Scientist).\n\nBoth live in the words/ directory. For example,\nwords/\n├── roles/\n│   └── research-software-engineer/\n│       └── index.qmd\n└── terms/\n    └── version-control/\n        └── index.qmd\nEach entry is a folder containing a single index.qmd file. Please do not add these manually. The create.py should be used to scaffold them automatically.\n\n\n\nAll definitions in the Word Explainer must be written using only the 1000 most used words. This is inspired by the Up-Goer Five comic by XKCD, which describes a rocket using only simple words.\nBefore submitting a definition, please check it using the Up-Goer Five Simple Writer. Any words highlighted in red are not in the allowed list and should be swapped out for simpler alternatives, like this example\n\n\n\nsimple writer demo\n\n\n\nThis constraint is intentional. It pushes us to explain complex ideas in plain language that anyone can understand, regardless of their background. Give it a go! It is a surprisingly fun and thought provoking exercise.\n\nWhen you are happy with your definition, entries are added using the create.py script, which validates your definition automatically at parse time. If any words are not in the allowed list, the script will exit with an error listing the offending words before any files are written. Nothing will be created until your definition is valid.\n\n\n\nFound something broken or have an idea? Please use the appropriate issue template so we have all the information we need:\n\nSuggest a new term or role\nReport a bug\nSuggest a general improvement\n\n\n\n\n\nFork the repository\nClone your fork locally\ngit clone https://github.com/&lt;your-username&gt;/word-explainer.git\ncd word-explainer\nCreate a new branch with a descriptive name:\ngit checkout -b add-version-control-term\nMake your changes (see Adding a New Entry below)\nCommit your changes with a clear message:\ngit commit -m \"Add definition for version control\"\nPush to your fork:\ngit push origin add-version-control-term\nOpen a pull request using the appropriate template:\n\nContent contribution: adding or improving a term or role\nBug fix or improvement: fixing a bug or improving the website\n\n\n\n\n\nThe create.py script scaffolds new entries for you, handling the directory structure and Jinja templating automatically.\n\n\nThe script uses uv to manage its dependencies such that a virtual environment is not needed and remains more self-contained. If you do not have uv installed, the uv docs have great installation instructions.\n\nAll commands must be run from the project root directory (the folder containing words/). The script will let you know if you are in the wrong place.\n\n\n\n\n\n\nIf you ever forget the available options, the script has built-in help so you do not need to refer back to this guide. Run --help at any level to see what is available. For example, for top-level help\nuv run dev-tools/create.py --help\n\n Usage: create.py [OPTIONS] COMMAND [ARGS]...\n\n╭─ Options ───────────────────────────────────────────────────────╮\n│ --install-completion          Install completion for the        │\n│                               current shell.                    │\n│ --show-completion             Show completion for the current   │\n│                               shell, to copy it or customize    │\n│                               the installation.                 │\n│ --help                        Show this message and exit.       │\n╰─────────────────────────────────────────────────────────────────╯\n╭─ Commands ──────────────────────────────────────────────────────╮\n│ role                                                            │\n│ term                                                            │\n╰─────────────────────────────────────────────────────────────────╯\nFor command-level help that shows the options for a specific command,\nuv run dev-tools/create.py role --help\nuv run dev-tools/create.py term --help\n\n\n\nThe script also supports shell completion, which lets you tab-complete commands and options directly in your terminal. To set it up, run:\nuv run dev-tools/create.py --install-completion\nIf you would prefer to set it up manually, you can inspect the completion script first:\nuv run dev-tools/create.py --show-completion\n\n\n\n\nuv run dev-tools/create.py role \\\n  -r \"Role Name\" \\\n  -u \"Simple up-goer five name\" \\\n  -d \"Long description explaining the role\"\n\n\n\n\n\n\n\n\nFlag\nDescription\nRequired\n\n\n\n\n-r\nRole name\nYes\n\n\n-u\nUp-Goer Five version of the name\nYes\n\n\n-d\nDescription of the role\nYes\n\n\n-f\nFolder name (defaults to role name, lowercased with hyphens)\nNo\n\n\n-o\nOverride an existing entry\nNo\n\n\n\nExample:\nuv run dev-tools/create.py role \\\n  -r \"Principal Investigator\" \\\n  -u \"Money Getter\" \\\n  -d \"I lead a group of different people who work to understand the world.\"\n\n\n\nTerms can have a noun definition, a verb definition, or both, and at least one must be provided. Each definition must be accompanied by a description.\n# Noun only\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -n \"Noun definition\" \\\n  --noun-desc \"Noun description\"\n\n# Verb only\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -v \"Verb definition\" \\\n  --verb-desc \"Verb description\"\n\n# Both noun and verb\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -n \"Noun definition\" \\\n  --noun-desc \"Noun description\" \\\n  -v \"Verb definition\" \\\n  --verb-desc \"Verb description\"\n\n\n\n\n\n\n\n\nFlag\nDescription\nRequired\n\n\n\n\n-t\nTerm name\nYes\n\n\n-n\nNoun definition\nNo. At least one of noun or verb must be provided\n\n\n--noun-desc\nNoun description (required if -n is provided)\nNo\n\n\n-v\nVerb definition\nNo. At least one of noun or verb must be provided\n\n\n--verb-desc\nVerb description (required if -v is provided)\nNo\n\n\n-f\nFolder name (defaults to term name, lowercased with hyphens)\nNo\n\n\n-o\nOverride an existing entry\nNo\n\n\n\n\nA definition and its description must always be provided together,\n\nNot Allowed: Noun definition without a noun description\nNot Allowed: Noun description without a noun definition\nCorrect: Noun definition and noun description together\n\n\n\n\n\nTo update an existing entry, use the -o flag:\nuv run dev-tools/create.py role -r \"Role Name\" -u \"Simple name\" -d \"Description\" -o\nuv run dev-tools/create.py term -t \"Term Name\" -n \"Noun definition\" --noun-desc \"Description\" -o\n\nThe -o flag will overwrite the existing index.qmd file entirely. Make sure you have committed any existing content before using it. This is mainly a convenience feature as mistakes happen.\nThe Up-Goer Five validation still applies when overriding an existing entry. The script will reject invalid words before any files are written.\n\n\n\n\n\nword-explainer/\n├── .github/\n│   ├── ISSUE_TEMPLATE/        # Issue form templates\n│   └── PULL_REQUEST_TEMPLATE/ # PR templates\n├── _extensions/               # Quarto extensions\n├── a-to-z/                    # A-to-Z index page\n├── about/                     # About page\n├── assets/                    # Static assets (images, CSS)\n├── dev-tools/\n│   ├── create.py              # Script to scaffold new entries\n│   ├── validate.py            # Script to validate up goer five contents\n│   └── templates/             # Jinja templates for terms and roles\n├── words/\n│   ├── roles/                 # Role entries\n│   └── terms/                 # Term entries\n├── _quarto.yml                # Quarto configuration\n├── _brand.yml                 # Brand/theme configuration\n├── index.qmd                  # Homepage\n└── LICENSE                    # CC BY 4.0 licence\n\n\n\nBy contributing to this repository, you agree that your contributions will be shared under the CC BY 4.0 licence. The same licence that covers the rest of the project. This means anyone can share and build upon your contribution, as long as they credit the original authors.\nThank you for taking the time to contribute! Every definition, fix, and idea makes the Word Explainer better for everyone."
+  },
+  {
+    "objectID": "contributing/index.html#table-of-contents",
+    "href": "contributing/index.html#table-of-contents",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "Contributing to the Word Explainer\n\nTable of Contents\nCode of Conduct\nWays to Contribute\nTerms vs. Roles\nThe Up-Goer Five Rule\nReporting Bugs and Suggesting Improvements\nSubmitting a Pull Request\nAdding a New Entry\n\nPrerequisites\nConvenience Features\n\nBuilt-in help\nShell completion\n\nAdding a New Role\nAdding a New Term\nOverriding an Existing Entry\n\nRepository Structure\nLicence"
+  },
+  {
+    "objectID": "contributing/index.html#code-of-conduct",
+    "href": "contributing/index.html#code-of-conduct",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "We want the Word Explainer to be a welcoming space for everyone. All contributors are expected to uphold our Code of Conduct, which follows the Contributor Covenant v2.1.\nTL;DR - be kind, be respectful, and be constructive. We are all here because we care about making research software more accessible."
+  },
+  {
+    "objectID": "contributing/index.html#ways-to-contribute",
+    "href": "contributing/index.html#ways-to-contribute",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "There is no contribution too small. Here are the ways you can get involved:\n\n\n\nContribution\nHow\n\n\n\n\nSuggest a new term or role\nOpen an issue\n\n\nReport a bug\nOpen an issue\n\n\nSuggest a website improvement\nOpen an issue\n\n\nImprove an existing definition\nOpen a pull request\n\n\nFix a bug or improve the website\nOpen a pull request\n\n\n\nNot sure whether to open an issue or a pull request? If you have a ready-made definition or fix, open a pull request. If you have an idea but are not sure how to implement it, open an issue and the community can help."
+  },
+  {
+    "objectID": "contributing/index.html#terms-vs.-roles",
+    "href": "contributing/index.html#terms-vs.-roles",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "One of the things that makes the Word Explainer a little different is that we distinguish between two types of entries:\n\nTerms (i.e. words we use): concepts, tools, or ideas used in research software (e.g. version control, open source, continuous integration).\nRoles (i.e. kinds of people): job titles or functions that people hold in research software (e.g. Research Software Engineer, Data Scientist).\n\nBoth live in the words/ directory. For example,\nwords/\n├── roles/\n│   └── research-software-engineer/\n│       └── index.qmd\n└── terms/\n    └── version-control/\n        └── index.qmd\nEach entry is a folder containing a single index.qmd file. Please do not add these manually. The create.py should be used to scaffold them automatically."
+  },
+  {
+    "objectID": "contributing/index.html#the-up-goer-five-rule",
+    "href": "contributing/index.html#the-up-goer-five-rule",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "All definitions in the Word Explainer must be written using only the 1000 most used words. This is inspired by the Up-Goer Five comic by XKCD, which describes a rocket using only simple words.\nBefore submitting a definition, please check it using the Up-Goer Five Simple Writer. Any words highlighted in red are not in the allowed list and should be swapped out for simpler alternatives, like this example\n\n\n\nsimple writer demo\n\n\n\nThis constraint is intentional. It pushes us to explain complex ideas in plain language that anyone can understand, regardless of their background. Give it a go! It is a surprisingly fun and thought provoking exercise.\n\nWhen you are happy with your definition, entries are added using the create.py script, which validates your definition automatically at parse time. If any words are not in the allowed list, the script will exit with an error listing the offending words before any files are written. Nothing will be created until your definition is valid."
+  },
+  {
+    "objectID": "contributing/index.html#reporting-bugs-and-suggesting-improvements",
+    "href": "contributing/index.html#reporting-bugs-and-suggesting-improvements",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "Found something broken or have an idea? Please use the appropriate issue template so we have all the information we need:\n\nSuggest a new term or role\nReport a bug\nSuggest a general improvement"
+  },
+  {
+    "objectID": "contributing/index.html#submitting-a-pull-request",
+    "href": "contributing/index.html#submitting-a-pull-request",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "Fork the repository\nClone your fork locally\ngit clone https://github.com/&lt;your-username&gt;/word-explainer.git\ncd word-explainer\nCreate a new branch with a descriptive name:\ngit checkout -b add-version-control-term\nMake your changes (see Adding a New Entry below)\nCommit your changes with a clear message:\ngit commit -m \"Add definition for version control\"\nPush to your fork:\ngit push origin add-version-control-term\nOpen a pull request using the appropriate template:\n\nContent contribution: adding or improving a term or role\nBug fix or improvement: fixing a bug or improving the website"
+  },
+  {
+    "objectID": "contributing/index.html#adding-a-new-entry",
+    "href": "contributing/index.html#adding-a-new-entry",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "The create.py script scaffolds new entries for you, handling the directory structure and Jinja templating automatically.\n\n\nThe script uses uv to manage its dependencies such that a virtual environment is not needed and remains more self-contained. If you do not have uv installed, the uv docs have great installation instructions.\n\nAll commands must be run from the project root directory (the folder containing words/). The script will let you know if you are in the wrong place.\n\n\n\n\n\n\nIf you ever forget the available options, the script has built-in help so you do not need to refer back to this guide. Run --help at any level to see what is available. For example, for top-level help\nuv run dev-tools/create.py --help\n\n Usage: create.py [OPTIONS] COMMAND [ARGS]...\n\n╭─ Options ───────────────────────────────────────────────────────╮\n│ --install-completion          Install completion for the        │\n│                               current shell.                    │\n│ --show-completion             Show completion for the current   │\n│                               shell, to copy it or customize    │\n│                               the installation.                 │\n│ --help                        Show this message and exit.       │\n╰─────────────────────────────────────────────────────────────────╯\n╭─ Commands ──────────────────────────────────────────────────────╮\n│ role                                                            │\n│ term                                                            │\n╰─────────────────────────────────────────────────────────────────╯\nFor command-level help that shows the options for a specific command,\nuv run dev-tools/create.py role --help\nuv run dev-tools/create.py term --help\n\n\n\nThe script also supports shell completion, which lets you tab-complete commands and options directly in your terminal. To set it up, run:\nuv run dev-tools/create.py --install-completion\nIf you would prefer to set it up manually, you can inspect the completion script first:\nuv run dev-tools/create.py --show-completion\n\n\n\n\nuv run dev-tools/create.py role \\\n  -r \"Role Name\" \\\n  -u \"Simple up-goer five name\" \\\n  -d \"Long description explaining the role\"\n\n\n\n\n\n\n\n\nFlag\nDescription\nRequired\n\n\n\n\n-r\nRole name\nYes\n\n\n-u\nUp-Goer Five version of the name\nYes\n\n\n-d\nDescription of the role\nYes\n\n\n-f\nFolder name (defaults to role name, lowercased with hyphens)\nNo\n\n\n-o\nOverride an existing entry\nNo\n\n\n\nExample:\nuv run dev-tools/create.py role \\\n  -r \"Principal Investigator\" \\\n  -u \"Money Getter\" \\\n  -d \"I lead a group of different people who work to understand the world.\"\n\n\n\nTerms can have a noun definition, a verb definition, or both, and at least one must be provided. Each definition must be accompanied by a description.\n# Noun only\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -n \"Noun definition\" \\\n  --noun-desc \"Noun description\"\n\n# Verb only\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -v \"Verb definition\" \\\n  --verb-desc \"Verb description\"\n\n# Both noun and verb\nuv run dev-tools/create.py term \\\n  -t \"Term Name\" \\\n  -n \"Noun definition\" \\\n  --noun-desc \"Noun description\" \\\n  -v \"Verb definition\" \\\n  --verb-desc \"Verb description\"\n\n\n\n\n\n\n\n\nFlag\nDescription\nRequired\n\n\n\n\n-t\nTerm name\nYes\n\n\n-n\nNoun definition\nNo. At least one of noun or verb must be provided\n\n\n--noun-desc\nNoun description (required if -n is provided)\nNo\n\n\n-v\nVerb definition\nNo. At least one of noun or verb must be provided\n\n\n--verb-desc\nVerb description (required if -v is provided)\nNo\n\n\n-f\nFolder name (defaults to term name, lowercased with hyphens)\nNo\n\n\n-o\nOverride an existing entry\nNo\n\n\n\n\nA definition and its description must always be provided together,\n\nNot Allowed: Noun definition without a noun description\nNot Allowed: Noun description without a noun definition\nCorrect: Noun definition and noun description together\n\n\n\n\n\nTo update an existing entry, use the -o flag:\nuv run dev-tools/create.py role -r \"Role Name\" -u \"Simple name\" -d \"Description\" -o\nuv run dev-tools/create.py term -t \"Term Name\" -n \"Noun definition\" --noun-desc \"Description\" -o\n\nThe -o flag will overwrite the existing index.qmd file entirely. Make sure you have committed any existing content before using it. This is mainly a convenience feature as mistakes happen.\nThe Up-Goer Five validation still applies when overriding an existing entry. The script will reject invalid words before any files are written."
+  },
+  {
+    "objectID": "contributing/index.html#repository-structure",
+    "href": "contributing/index.html#repository-structure",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "word-explainer/\n├── .github/\n│   ├── ISSUE_TEMPLATE/        # Issue form templates\n│   └── PULL_REQUEST_TEMPLATE/ # PR templates\n├── _extensions/               # Quarto extensions\n├── a-to-z/                    # A-to-Z index page\n├── about/                     # About page\n├── assets/                    # Static assets (images, CSS)\n├── dev-tools/\n│   ├── create.py              # Script to scaffold new entries\n│   ├── validate.py            # Script to validate up goer five contents\n│   └── templates/             # Jinja templates for terms and roles\n├── words/\n│   ├── roles/                 # Role entries\n│   └── terms/                 # Term entries\n├── _quarto.yml                # Quarto configuration\n├── _brand.yml                 # Brand/theme configuration\n├── index.qmd                  # Homepage\n└── LICENSE                    # CC BY 4.0 licence"
+  },
+  {
+    "objectID": "contributing/index.html#licence",
+    "href": "contributing/index.html#licence",
+    "title": "Contributing to the Word Explainer",
+    "section": "",
+    "text": "By contributing to this repository, you agree that your contributions will be shared under the CC BY 4.0 licence. The same licence that covers the rest of the project. This means anyone can share and build upon your contribution, as long as they credit the original authors.\nThank you for taking the time to contribute! Every definition, fix, and idea makes the Word Explainer better for everyone."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Word Explainer for Wonder-Driven Computer People",
+    "section": "",
+    "text": "What is a digital research technical professional (dRTP)? It is a question that’s hard to answer, even to researchers, let alone those outside research. This uses the Up Goer Five Challenge, inspired by this XKCD comic, to give the dRTP community fun translations to describe what we do in the thousand most common words. Find out more about the project and how to contribute – or try the challenge yourself!\n\nExplore the roles (the “kinds of people”)\nBrowse the terminology (the “words we use”)"
+  },
+  {
+    "objectID": "index.html#translations-for-drtps",
+    "href": "index.html#translations-for-drtps",
+    "title": "Word Explainer for Wonder-Driven Computer People",
+    "section": "",
+    "text": "What is a digital research technical professional (dRTP)? It is a question that’s hard to answer, even to researchers, let alone those outside research. This uses the Up Goer Five Challenge, inspired by this XKCD comic, to give the dRTP community fun translations to describe what we do in the thousand most common words. Find out more about the project and how to contribute – or try the challenge yourself!\n\nExplore the roles (the “kinds of people”)\nBrowse the terminology (the “words we use”)"
+  },
+  {
+    "objectID": "about/index.html",
+    "href": "about/index.html",
+    "title": "About the Word Explainer",
+    "section": "",
+    "text": "As wonder-driven computer people, we use computers to understand the world and learn as much as we can. A lot of people do not understand what we do. Even other wonder-driven people :( So, we want to explain what we do!\nWe play an important part in making it possible for other wonder-driven people to discover more about us and the world we live in. To start that conversation, we first need to have the words to explain what we do in a way that anyone can follow and ask questions. A big part of this is helping them understand how being wonder-driven changes the way we work with computers, and how that makes us different from other computer people. And by anyone, we mean everyone. From the not computer people we work with, those that give wonder-driven people the money to discover more about the world, our families, or anyone we meet on the street.\n\n\nWe are only using the ten hundred most used words! By only using simple words, we have to think hard to get to the bottom about what something means. This is not as easy as it sounds. Below shows how hard it is to state what we do.\n\n\n\n\n\nYou can try it out too at the simple writer! If you are short of an idea of what to talk about, try explaining what you do in your free time or a problem you are working on."
+  },
+  {
+    "objectID": "about/index.html#what-is-this",
+    "href": "about/index.html#what-is-this",
+    "title": "About the Word Explainer",
+    "section": "",
+    "text": "As wonder-driven computer people, we use computers to understand the world and learn as much as we can. A lot of people do not understand what we do. Even other wonder-driven people :( So, we want to explain what we do!\nWe play an important part in making it possible for other wonder-driven people to discover more about us and the world we live in. To start that conversation, we first need to have the words to explain what we do in a way that anyone can follow and ask questions. A big part of this is helping them understand how being wonder-driven changes the way we work with computers, and how that makes us different from other computer people. And by anyone, we mean everyone. From the not computer people we work with, those that give wonder-driven people the money to discover more about the world, our families, or anyone we meet on the street.\n\n\nWe are only using the ten hundred most used words! By only using simple words, we have to think hard to get to the bottom about what something means. This is not as easy as it sounds. Below shows how hard it is to state what we do.\n\n\n\n\n\nYou can try it out too at the simple writer! If you are short of an idea of what to talk about, try explaining what you do in your free time or a problem you are working on."
+  },
+  {
+    "objectID": "about/index.html#what-can-i-do-with-this",
+    "href": "about/index.html#what-can-i-do-with-this",
+    "title": "About the Word Explainer",
+    "section": "What can I do with this?",
+    "text": "What can I do with this?\nAlmost anything! We just ask that you follow this way of sharing. It lets you share, use again, and change these things as you would like, as long as you keep our names and don’t get us in trouble if this isn’t quite right.\n\nHow can I use this? Or make this better?\nThis is to help us think more simply and clearly about what we do and how we do it (while having lots of fun!) One way is to use it when talking to children or people that do not work in the same area as us. The are many other ways it can be used. All we need to do is to imagine!\nIf you have thought of an interesting way to use it, let us know! If you suggest it on this, we can see how we could add it. We are always looking for ways to make it better.\nIf you would like to help make this better, you can add a new way to explain your job or important things to explain to help people. If you find something you don’t agree with, you can also suggest a change. Check this out to find out more about making this better.\nWe want as many people to add to this so that it what we all think, not just what one person thinks. Each page also allows you to put 👍 or 👎 and to leave what you think."
+  },
+  {
+    "objectID": "about/index.html#how-did-this-come-about",
+    "href": "about/index.html#how-did-this-come-about",
+    "title": "About the Word Explainer",
+    "section": "How did this come about?",
+    "text": "How did this come about?\nEvery year we wonder-driven computer people gather together to think of ways to fix the problems we face. This started life at the 2026 gathering. We worked together to create ways to explain the jobs and words we chose.\nThese are the people who help to create this.\n\n\n\nName\nRole\n\n\n\n\nHui Ling Wong\n🤔 Ideas, 🔬 Research 🖋 Content, 📆 Project Management\n\n\nSaranjeet Kaur\n🖋 Content\n\n\nLoïc Lannelongue\n📆 Project Management\n\n\nPaddy McCann\n🖋 Content, 🤔 Ideas, 🔬 Research\n\n\nNeil Chue Hong\n🖋 Content, 🔬 Research, 🤔 Ideas\n\n\nColin Sauze\n🤔 Ideas, 🔬 Research\n\n\nSofía Miñano\n🤔 Ideas, 🔬 Research, 🖋 Content\n\n\nStephan Druskat\n🤔 Ideas, 🔬 Research, 💻 Code\n\n\nJoe Shingleton\n🤔 Ideas, 🔬 Research, 🖋 Content, 👀 Review\n\n\nRachael Stickland\n🤔 Ideas, 🔬 Research, 🖋 Content, 👀 Review, 📆 Project Management\n\n\nTom Bland\n🤔 Ideas, 🔬 Research, 🖋 Content, 👀 Review\n\n\nPiriyan Karu\n🤔 Ideas, 🔬 Research, 🖋 Content\n\n\nSadie L. Bartholomew\n🤔 Ideas, 🔬 Research, 🖋 Content"
+  },
+  {
+    "objectID": "a-to-z/index.html",
+    "href": "a-to-z/index.html",
+    "title": "Glossary",
+    "section": "",
+    "text": "A\n  \n  \n  \n    Artificial Intelligence\n    \n  \n  \n\n  C\n  \n  \n  \n    Coffee\n    \n  \n    Collaborations Workshop\n    \n  \n    Community\n    \n  \n  \n\n  D\n  \n  \n  \n    Data\n    \n  \n    Digital Research Technical Professional\n    Wonder-driven computer person\n  \n  \n\n  M\n  \n  \n  \n    Manager\n    Team Machine Driver\n  \n  \n\n  P\n  \n  \n  \n    Principal Investigator\n    Money Getter\n  \n  \n\n  R\n  \n  \n  \n    Research\n    \n  \n    Research Community Manager\n    Together Bringer of Wonder-driven People\n  \n    Research Institution\n    \n  \n    Research Software Engineer\n    Wonder-driven Computer Steps Writer\n  \n  \n\n  S\n  \n  \n  \n    Scientist\n    Wonder-driven Person\n  \n    Software\n    \n  \n    System Administrator\n    Keeper of Computer Gates and Keys\n  \n  \n\n  U\n  \n  \n  \n    University\n    \n  \n  \n\nNo matching items\n Back to top"
+  },
+  {
+    "objectID": "CODE_OF_CONDUCT.html",
+    "href": "CODE_OF_CONDUCT.html",
+    "title": "Contributor Covenant Code of Conduct",
+    "section": "",
+    "text": "We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, color, religion, or sexual identity and orientation.\nWe pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.\n\n\n\nExamples of behavior that contributes to a positive environment for our community include:\n\nDemonstrating empathy and kindness toward other people\nBeing respectful of differing opinions, viewpoints, and experiences\nGiving and gracefully accepting constructive feedback\nAccepting responsibility and apologizing to those affected by our mistakes, and learning from the experience\nFocusing on what is best not just for us as individuals, but for the overall community\n\nExamples of unacceptable behavior include:\n\nThe use of sexualized language or imagery, and sexual attention or advances of any kind\nTrolling, insulting or derogatory comments, and personal or political attacks\nPublic or private harassment\nPublishing others’ private information, such as a physical or email address, without their explicit permission\nOther conduct which could reasonably be considered inappropriate in a professional setting\n\n\n\n\nCommunity leaders are responsible for clarifying and enforcing our standards of acceptable behavior and will take appropriate and fair corrective action in response to any behavior that they deem inappropriate, threatening, offensive, or harmful.\nCommunity leaders have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, and will communicate reasons for moderation decisions when appropriate.\n\n\n\nThis Code of Conduct applies within all community spaces, and also applies when an individual is officially representing the community in public spaces. Examples of representing our community include using an official e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event.\n\n\n\nInstances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at [INSERT CONTACT METHOD]. All complaints will be reviewed and investigated promptly and fairly.\nAll community leaders are obligated to respect the privacy and security of the reporter of any incident.\n\n\n\nCommunity leaders will follow these Community Impact Guidelines in determining the consequences for any action they deem in violation of this Code of Conduct:\n\n\nCommunity Impact: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.\nConsequence: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.\n\n\n\nCommunity Impact: A violation through a single incident or series of actions.\nConsequence: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions in community spaces as well as external channels like social media. Violating these terms may lead to a temporary or permanent ban.\n\n\n\nCommunity Impact: A serious violation of community standards, including sustained inappropriate behavior.\nConsequence: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, is allowed during this period. Violating these terms may lead to a permanent ban.\n\n\n\nCommunity Impact: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.\nConsequence: A permanent ban from any sort of public interaction within the community.\n\n\n\n\nThis Code of Conduct is adapted from the Contributor Covenant, version 2.1, available at https://www.contributor-covenant.org/version/2/1/code_of_conduct.html.\nCommunity Impact Guidelines were inspired by Mozilla’s code of conduct enforcement ladder.\nFor answers to common questions about this code of conduct, see the FAQ at https://www.contributor-covenant.org/faq. Translations are available at https://www.contributor-covenant.org/translations."
+  },
+  {
+    "objectID": "CODE_OF_CONDUCT.html#our-pledge",
+    "href": "CODE_OF_CONDUCT.html#our-pledge",
+    "title": "Contributor Covenant Code of Conduct",
+    "section": "",
+    "text": "We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, color, religion, or sexual identity and orientation.\nWe pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community."
+  },
+  {
+    "objectID": "CODE_OF_CONDUCT.html#our-standards",
+    "href": "CODE_OF_CONDUCT.html#our-standards",
+    "title": "Contributor Covenant Code of Conduct",
+    "section": "",
+    "text": "Examples of behavior that contributes to a positive environment for our community include:\n\nDemonstrating empathy and kindness toward other people\nBeing respectful of differing opinions, viewpoints, and experiences\nGiving and gracefully accepting constructive feedback\nAccepting responsibility and apologizing to those affected by our mistakes, and learning from the experience\nFocusing on what is best not just for us as individuals, but for the overall community\n\nExamples of unacceptable behavior include:\n\nThe use of sexualized language or imagery, and sexual attention or advances of any kind\nTrolling, insulting or derogatory comments, and personal or political attacks\nPublic or private harassment\nPublishing others’ private information, such as a physical or email address, without their explicit permission\nOther conduct which could reasonably be considered inappropriate in a professional setting"
+  },
+  {
+    "objectID": "CODE_OF_CONDUCT.html#enforcement-responsibilities",
+    "href": "CODE_OF_CONDUCT.html#enforcement-responsibilities",
+    "title": "Contributor Covenant Code of Conduct",
+    "section": "",
+    "text": "Community leaders are responsible for clarifying and enforcing our standards of acceptable behavior and will take appropriate and fair corrective action in response to any behavior that they deem inappropriate, threatening, offensive, or harmful.\nCommunity leaders have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, and will communicate reasons for moderation decisions when appropriate."
+  },
+  {
+    "objectID": "CODE_OF_CONDUCT.html#scope",
+    "href": "CODE_OF_CONDUCT.html#scope",
+    "title": "Contributor Covenant Code of Conduct",
+    "section": "",
+    "text": "This Code of Conduct applies within all community spaces, and also applies when an individual is officially representing the community in public spaces. Examples of representing our community include using an official e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event."
+  },
+  {
+    "objectID": "CODE_OF_CONDUCT.html#enforcement",
+    "href": "CODE_OF_CONDUCT.html#enforcement",
+    "title": "Contributor Covenant Code of Conduct",
+    "section": "",
+    "text": "Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at [INSERT CONTACT METHOD]. All complaints will be reviewed and investigated promptly and fairly.\nAll community leaders are obligated to respect the privacy and security of the reporter of any incident."
+  },
+  {
+    "objectID": "CODE_OF_CONDUCT.html#enforcement-guidelines",
+    "href": "CODE_OF_CONDUCT.html#enforcement-guidelines",
+    "title": "Contributor Covenant Code of Conduct",
+    "section": "",
+    "text": "Community leaders will follow these Community Impact Guidelines in determining the consequences for any action they deem in violation of this Code of Conduct:\n\n\nCommunity Impact: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.\nConsequence: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.\n\n\n\nCommunity Impact: A violation through a single incident or series of actions.\nConsequence: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions in community spaces as well as external channels like social media. Violating these terms may lead to a temporary or permanent ban.\n\n\n\nCommunity Impact: A serious violation of community standards, including sustained inappropriate behavior.\nConsequence: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, is allowed during this period. Violating these terms may lead to a permanent ban.\n\n\n\nCommunity Impact: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.\nConsequence: A permanent ban from any sort of public interaction within the community."
+  },
+  {
+    "objectID": "CODE_OF_CONDUCT.html#attribution",
+    "href": "CODE_OF_CONDUCT.html#attribution",
+    "title": "Contributor Covenant Code of Conduct",
+    "section": "",
+    "text": "This Code of Conduct is adapted from the Contributor Covenant, version 2.1, available at https://www.contributor-covenant.org/version/2/1/code_of_conduct.html.\nCommunity Impact Guidelines were inspired by Mozilla’s code of conduct enforcement ladder.\nFor answers to common questions about this code of conduct, see the FAQ at https://www.contributor-covenant.org/faq. Translations are available at https://www.contributor-covenant.org/translations."
+  },
+  {
     "objectID": "words/terms/collaborations-workshop/index.html",
     "href": "words/terms/collaborations-workshop/index.html",
     "title": "Collaborations Workshop",
@@ -187,6 +376,34 @@
     "title": "Collaborations Workshop",
     "section": "",
     "text": "Lots of different people working together meeting\n\nAn often exciting and sometimes fun meeting bringing many different people to have interesting conversations to change the world and themselves"
+  },
+  {
+    "objectID": "words/terms/data/index.html",
+    "href": "words/terms/data/index.html",
+    "title": "Data",
+    "section": "",
+    "text": "Numbers and words that can be used to answer questions\n\nPieces of things like numbers, words, pictures, or sounds. People work on these pieces to sort them and give them clear ideas, decide things and fix problems."
+  },
+  {
+    "objectID": "words/terms/data/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "href": "words/terms/data/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "title": "Data",
+    "section": "",
+    "text": "Numbers and words that can be used to answer questions\n\nPieces of things like numbers, words, pictures, or sounds. People work on these pieces to sort them and give them clear ideas, decide things and fix problems."
+  },
+  {
+    "objectID": "words/terms/artificial-intelligence/index.html",
+    "href": "words/terms/artificial-intelligence/index.html",
+    "title": "Artificial Intelligence",
+    "section": "",
+    "text": "Very good guessing machine\n\nThis uses a lot of information and computer power to spot when the same thing keeps happening over and over again. By finding out how things repeat, it is able to make very good guesses and appears to learn how things work. Because of this, it sometimes thinks things are real when they are not. This is why we need to be careful when using it."
+  },
+  {
+    "objectID": "words/terms/artificial-intelligence/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "href": "words/terms/artificial-intelligence/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "title": "Artificial Intelligence",
+    "section": "",
+    "text": "Very good guessing machine\n\nThis uses a lot of information and computer power to spot when the same thing keeps happening over and over again. By finding out how things repeat, it is able to make very good guesses and appears to learn how things work. Because of this, it sometimes thinks things are real when they are not. This is why we need to be careful when using it."
   },
   {
     "objectID": "words/terms/coffee/index.html",
@@ -203,25 +420,39 @@
     "text": "Get work done drink\n\nA warm drink to help us wake up. It allows us to use our brain to fix problems and build new systems.\nIf you are looking for us, you can often find us near the machine that makes this drink as we always need more! When you see us there, approach with care to avoid scaring us."
   },
   {
+    "objectID": "words/terms/community/index.html",
+    "href": "words/terms/community/index.html",
+    "title": "Community",
+    "section": "",
+    "text": "Group of people who have a shared interest or want or have something the same\n\nA group of people who share things like where they live, what they like, or who they are. They often know each other, help each other, and feel like they are part of the same group."
+  },
+  {
+    "objectID": "words/terms/community/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "href": "words/terms/community/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207469746c65203e7d7d-the-name-of-a-thing",
+    "title": "Community",
+    "section": "",
+    "text": "Group of people who have a shared interest or want or have something the same\n\nA group of people who share things like where they live, what they like, or who they are. They often know each other, help each other, and feel like they are part of the same group."
+  },
+  {
+    "objectID": "words/roles/rse/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "href": "words/roles/rse/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "title": "Research Software Engineer",
+    "section": "Wonder-driven Computer Steps Writer",
+    "text": "Wonder-driven Computer Steps Writer\n\n\n\n\n\n\n\nI am a person who writes computer work to help find answers for a question. My work is to build and fix computer work used in studies. I make sure they work and share it with other people to use."
+  },
+  {
+    "objectID": "words/roles/manager/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "href": "words/roles/manager/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
+    "title": "Manager",
+    "section": "Team Machine Driver",
+    "text": "Team Machine Driver\n\n\n\n\n\n\n\nA person who helps a group of people work well together. They plan what work needs to be done, give jobs to people, and make sure everything stays on track."
+  },
+  {
     "objectID": "words/roles/principal-investigator/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
     "href": "words/roles/principal-investigator/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
     "title": "Principal Investigator",
-    "section": "Money-getting for understanding person",
-    "text": "Money-getting for understanding person\n\n\n\n\n\n\n\nI lead a group of different people who work to understand the world or people by looking for new facts. My work is to get money to let us do this, and make sure that we do it in a good way so that others can learn from it."
-  },
-  {
-    "objectID": "words/roles/scientist/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
-    "href": "words/roles/scientist/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
-    "title": "Scientist",
-    "section": "Someone who looks at the world around them and asks questions like, why is it the way it is or how does it work",
-    "text": "Someone who looks at the world around them and asks questions like, why is it the way it is or how does it work\n\n\n\n\n\n\n\nPerson who’s job is to find out new things. They get facts and other things to help them come up with ideas and learn more about one part of the world, like living things, what things are made of, or how things move. They work to understand the world around us, fix problems, and tell other people what they find so everyone can know more."
-  },
-  {
-    "objectID": "words/roles/rcm/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
-    "href": "words/roles/rcm/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
-    "title": "Research Community Manager",
-    "section": "World questioning people grouper",
-    "text": "World questioning people grouper\n\n\n\n\n\n\n\nI bring together a group of people with shared interest to share ideas and talk. My work is to help build up and further the interest of the group by giving a place to meet and talk. A part of my work is to help by making people feel accepted and want to take part in sharing ideas and facts."
+    "section": "Money Getter",
+    "text": "Money Getter\n\n\n\n\n\n\n\nI lead a group of different people who work to understand the world or people by looking for new facts. My work is to get money to let us do this, and make sure that we do it in a good way so that others can learn from it."
   },
   {
     "objectID": "words/roles/sys-admin/index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d657461207375627469746c65203e7d7d",
@@ -231,17 +462,17 @@
     "text": "Keeper of Computer Gates and Keys\n\n\n\n\n\n\n\nAs the keeper, I manage who can use the computers and what they can do on it. I make sure that everyone can only see the information and the computer power to do their job. Nothing more. This is important when people are sharing one big computer. Only opening the gates and handing over the keys needed to get their job done.\nBy being careful about which gates I open and hand the keys to, I keep the people, their information and the computer safe. If anything or anyone that is not allowed to be on the computer, I stop them. When things break, I do my best to figure out what went wrong and to fix it."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Word Explainer for Wonder-Driven Computer People",
+    "objectID": "license.html",
+    "href": "license.html",
+    "title": "License",
     "section": "",
-    "text": "What is a digital research technical professional (dRTP)? It is a question that’s hard to answer, even to researchers, let alone those outside research. This site uses the Up Goer Five Challenge, inspired by this XKCD comic, to give the dRTP community a shared language for describing what we do. Find out more about the project and how to contribute – or try the challenge yourself!\n\nExplore the roles (the “kinds of people”)\nBrowse the terminology (the “words we use”)"
+    "text": "The content on this website is licensed under the Creative Commons Attribution 4.0 International License.\n\n\n\nShare copy and redistribute the material in any medium or format\nAdapt remix, transform, and build upon the material for any purpose, even commercially\n\n\n\n\n\nAttribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.\nNo additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.\n\n\n\n\nYou do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.\nNo warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.\n\n\n\nIf you use or adapt content from this website please use the following attribution:\n\n[Your Website Name] by [Your Name / Organisation], licensed under CC BY 4.0.\n\n\nFor the full legal text of this license please visit https://creativecommons.org/licenses/by/4.0/legalcode."
   },
   {
-    "objectID": "index.html#translations-for-drtps",
-    "href": "index.html#translations-for-drtps",
-    "title": "Word Explainer for Wonder-Driven Computer People",
+    "objectID": "license.html#creative-commons-attribution-4.0-international-cc-by-4.0",
+    "href": "license.html#creative-commons-attribution-4.0-international-cc-by-4.0",
+    "title": "License",
     "section": "",
-    "text": "What is a digital research technical professional (dRTP)? It is a question that’s hard to answer, even to researchers, let alone those outside research. This site uses the Up Goer Five Challenge, inspired by this XKCD comic, to give the dRTP community a shared language for describing what we do. Find out more about the project and how to contribute – or try the challenge yourself!\n\nExplore the roles (the “kinds of people”)\nBrowse the terminology (the “words we use”)"
+    "text": "The content on this website is licensed under the Creative Commons Attribution 4.0 International License.\n\n\n\nShare copy and redistribute the material in any medium or format\nAdapt remix, transform, and build upon the material for any purpose, even commercially\n\n\n\n\n\nAttribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.\nNo additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.\n\n\n\n\nYou do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.\nNo warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.\n\n\n\nIf you use or adapt content from this website please use the following attribution:\n\n[Your Website Name] by [Your Name / Organisation], licensed under CC BY 4.0.\n\n\nFor the full legal text of this license please visit https://creativecommons.org/licenses/by/4.0/legalcode."
   }
 ]

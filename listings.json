@@ -2,6 +2,7 @@
   {
     "listing": "/words/roles/index.html",
     "items": [
+      "/words/roles/drtp/index.html",
       "/words/roles/manager/index.html",
       "/words/roles/principal-investigator/index.html",
       "/words/roles/rcm/index.html",
@@ -13,6 +14,7 @@
   {
     "listing": "/words/terms/index.html",
     "items": [
+      "/words/terms/artificial-intelligence/index.html",
       "/words/terms/coffee/index.html",
       "/words/terms/collaborations-workshop/index.html",
       "/words/terms/community/index.html",
@@ -26,10 +28,12 @@
   {
     "listing": "/a-to-z/index.html",
     "items": [
+      "/words/terms/artificial-intelligence/index.html",
       "/words/terms/coffee/index.html",
       "/words/terms/collaborations-workshop/index.html",
       "/words/terms/community/index.html",
       "/words/terms/data/index.html",
+      "/words/roles/drtp/index.html",
       "/words/roles/manager/index.html",
       "/words/roles/principal-investigator/index.html",
       "/words/terms/reserach/index.html",
