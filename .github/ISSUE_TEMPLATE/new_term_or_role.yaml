@@ -51,14 +51,98 @@ body:
       required: true
 
   - type: textarea
-    id: definition
+    id: up_goer_five_name
     attributes:
-      label: Suggested definition
+      label: Up-Goer Five name
       description: |
-        If you have a suggested definition, please provide it here.
-        Remember — only use the 1000 most common words in English!
-        Check your definition at [XKCD simple writer](https://xkcd.com/simplewriter/).
-      placeholder: Leave blank if you would like the community to suggest one.
+        A short plain-language version of the name using only the 1000 most
+        common words in English. This appears as the subtitle on the entry page.
+        Check your words using the [XKCD Simple Writer](https://xkcd.com/simplewriter/).
+      placeholder: e.g. "Person who helps make computer things work better"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### Term definitions
+        
+        The following fields apply to **terms only**. If you are suggesting a
+        role, you can skip to the description below.
+        
+        A term can have a noun definition (what it **is**), a verb definition
+        (what it **does**), or both — but at least one must be provided.
+
+  - type: textarea
+    id: noun_definition
+    attributes:
+      label: Noun definition (what it is)
+      description: |
+        A short plain-language definition of the term as a noun.
+        Only use the 1000 most common words in English.
+        Check your definition at [XKCD Simple Writer](https://xkcd.com/simplewriter/).
+      placeholder: |
+        Leave blank if this term does not have a noun definition, or if you are suggesting a role.
+
+  - type: textarea
+    id: noun_description
+    attributes:
+      label: Noun description
+      description: |
+        A longer description of the term as a noun.
+        Only use the 1000 most common words in English.
+      placeholder: |
+        Leave blank if you did not provide a noun definition above.
+
+  - type: textarea
+    id: verb_definition
+    attributes:
+      label: Verb definition (what it does)
+      description: |
+        A short plain-language definition of the term as a verb.
+        Only use the 1000 most common words in English.
+        Check your definition at [XKCD Simple Writer](https://xkcd.com/simplewriter/).
+      placeholder: |
+        Leave blank if this term does not have a verb definition, or if you are suggesting a role.
+
+  - type: textarea
+    id: verb_description
+    attributes:
+      label: Verb description
+      description: |
+        A longer description of the term as a verb.
+        Only use the 1000 most common words in English.
+      placeholder: |
+        Leave blank if you did not provide a verb definition above.
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### Role description
+
+        The following field applies to **roles only**. If you are suggesting a
+        term, you can skip this.
+
+  - type: textarea
+    id: role_description
+    attributes:
+      label: Role description
+      description: |
+        A longer description explaining the role.
+        Only use the 1000 most common words in English.
+        Check your description at [XKCD Simple Writer](https://xkcd.com/simplewriter/).
+      placeholder: |
+        Leave blank if you are suggesting a term.
+
+  - type: checkboxes
+    id: up_goer_five_check
+    attributes:
+      label: Up-Goer Five check
+      options:
+        - label: I have checked my definition using the [XKCD Simple Writer](https://xkcd.com/simplewriter/)
+          required: true
 
   - type: textarea
     id: anything_else

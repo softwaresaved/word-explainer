@@ -1,0 +1,185 @@
+name: Create entry from issue
+
+# Generated with claude-sonnet-4-6
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-entry:
+    # Only run for new term or role issues
+    if: contains(github.event.issue.labels.*.name, 'new entry')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Parse issue form fields
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body;
+
+            function extractField(label) {
+              const pattern = new RegExp(
+                `### ${label}\\s*\\n+([^#]+?)(?=\\n###|$)`,
+                "s"
+              );
+              const match = body.match(pattern);
+              return match ? match[1].trim() : null;
+            }
+
+            const entryType       = extractField("What would you like to add\\?");
+            const entryName       = extractField("Name of the term or role");
+            const upGoerFiveName  = extractField("Up-Goer Five name");
+            const nounDefinition  = extractField("Noun definition \\(what it is\\)");
+            const nounDescription = extractField("Noun description");
+            const verbDefinition  = extractField("Verb definition \\(what it does\\)");
+            const verbDescription = extractField("Verb description");
+            const roleDescription = extractField("Role description");
+
+            const isRole = entryType?.toLowerCase().includes("role");
+
+            core.setOutput("entry_type",       isRole ? "role" : "term");
+            core.setOutput("entry_name",        entryName       || "");
+            core.setOutput("up_goer_five_name", upGoerFiveName  || "");
+            core.setOutput("noun_definition",   nounDefinition  || "");
+            core.setOutput("noun_description",  nounDescription || "");
+            core.setOutput("verb_definition",   verbDefinition  || "");
+            core.setOutput("verb_description",  verbDescription || "");
+            core.setOutput("role_description",  roleDescription || "");
+
+            const branchName = `issue-${context.payload.issue.number}-${
+              entryName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
+            }`;
+            core.setOutput("branch_name", branchName);
+
+      - name: Create branch
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b ${{ steps.parse.outputs.branch_name }}
+
+      - name: Template new entry
+        run: |
+          ENTRY_TYPE="${{ steps.parse.outputs.entry_type }}"
+          ENTRY_NAME="${{ steps.parse.outputs.entry_name }}"
+          UP_GOER_FIVE_NAME="${{ steps.parse.outputs.up_goer_five_name }}"
+          NOUN_DEF="${{ steps.parse.outputs.noun_definition }}"
+          NOUN_DESC="${{ steps.parse.outputs.noun_description }}"
+          VERB_DEF="${{ steps.parse.outputs.verb_definition }}"
+          VERB_DESC="${{ steps.parse.outputs.verb_description }}"
+          ROLE_DESC="${{ steps.parse.outputs.role_description }}"
+
+          if [ "$ENTRY_TYPE" = "role" ]; then
+            uv run dev-tools/create.py role \
+              --role-name        "$ENTRY_NAME" \
+              --up-goer-five-name "$UP_GOER_FIVE_NAME" \
+              --description      "$ROLE_DESC"
+          else
+            # Build term command dynamically based on which definitions exist
+            CMD="uv run dev-tools/create.py term --term-name \"$ENTRY_NAME\""
+
+            if [ -n "$NOUN_DEF" ] && [ -n "$NOUN_DESC" ]; then
+              CMD="$CMD --noun-def \"$NOUN_DEF\" --noun-desc \"$NOUN_DESC\""
+            fi
+
+            if [ -n "$VERB_DEF" ] && [ -n "$VERB_DESC" ]; then
+              CMD="$CMD --verb-def \"$VERB_DEF\" --verb-desc \"$VERB_DESC\""
+            fi
+
+            eval $CMD
+          fi
+
+      - name: Commit and push
+        run: |
+          git add words/
+          git commit -m "Add ${{ steps.parse.outputs.entry_type }}: ${{ steps.parse.outputs.entry_name }} (closes #${{ github.event.issue.number }})"
+          git push origin ${{ steps.parse.outputs.branch_name }}
+
+      - name: Open pull request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const entryType = "${{ steps.parse.outputs.entry_type }}";
+            const entryName = "${{ steps.parse.outputs.entry_name }}";
+            const issueNumber = context.payload.issue.number;
+            const isRole = entryType === "role";
+
+            const body = `
+            ## What does this PR do?
+
+            This PR was automatically generated from issue #${issueNumber}.
+            Please review the scaffolded entry and update the definition before merging.
+
+            ### Type of contribution
+
+            ${isRole ? `#### For Roles (i.e. kinds of people)
+            - [x] Add a new role
+            - [ ] Add an additional definition to an existing role
+            - [ ] Improve an existing definition for a role
+            - [ ] Add a custom section to an existing role` :
+            `#### For Terms (i.e. words we use)
+            - [x] Add a new term
+            - [ ] Add an additional definition to an existing term
+            - [ ] Improve an existing definition for a term
+            - [ ] Add a custom section to an existing term`}
+
+            ## Details of your contribution
+
+            ### Term or Role name
+
+            ${entryName}
+
+            ### Is this a new addition or a change to an existing entry?
+
+            - [x] New entry
+            - [ ] Change to an existing entry
+
+            ### If adding a new definition, please confirm it follows the Up-Goer Five rules
+
+            - [ ] I have checked my definition using the [Up-Goer Five Simple Writer](https://xkcd.com/simplewriter/)
+
+            ### Your definition or change
+
+            <!-- Please review and update the scaffolded definition below -->
+            ${{ steps.parse.outputs.definition }}
+
+            ## Checklist
+
+            - [ ] I have checked that the term or role does not already exist (or I am intentionally adding an alternative definition)
+            - [ ] My definition only uses the 1000 most common words in English
+            - [ ] I have followed the existing file structure in the \`words/\` directory or used the Python tool in [dev-tools/create.py](../../dev-tools/create.py) when creating a new entry
+
+            ## Anything else?
+
+            Automatically generated from issue #${issueNumber}. See the issue for the original motivation and context.
+
+            Closes #${issueNumber}
+            `.trim();
+
+            const pr = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title: `Add ${entryType}: ${entryName}`,
+              head:  "${{ steps.parse.outputs.branch_name }}",
+              base:  "main",
+              body:  body,
+            });
+
+            await github.rest.issues.createComment({
+              owner:        context.repo.owner,
+              repo:         context.repo.repo,
+              issue_number: issueNumber,
+              body: `A pull request has been automatically created from this issue: ${pr.data.html_url}\n\nPlease review the scaffolded entry and update the definition before merging.`,
+            });
