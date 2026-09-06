@@ -25,44 +25,84 @@ jobs:
 
       - name: Parse issue form fields
         id: parse
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const body = context.payload.issue.body;
 
-            function extractField(label) {
+            const FIELD_ID_TO_LABEL = {
+              entry_type:        "What would you like to add?",
+              entry_name:        "Name of the term or role",
+              noun_definition:   "Noun definition",
+              noun_description:  "Noun description",
+              verb_definition:   "Verb definition",
+              verb_description:  "Verb description",
+              up_goer_five_name: "Role Up-Goer Five name",
+              role_description:  "Role description",
+            };
+
+            function extractById(id) {
+              const label = FIELD_ID_TO_LABEL[id];
+              if (!label) {
+                core.warning(`No label mapping found for field ID: ${id}`);
+                return "";
+              }
+
+              const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
               const pattern = new RegExp(
-                `### ${label}\\s*\\n+([^#]+?)(?=\\n###|$)`,
-                "s"
+                `### ${escaped}\\s*\\n+([\\s\\S]+?)(?=\\n###|$)`,
+                "m"
               );
               const match = body.match(pattern);
-              return match ? match[1].trim() : null;
+              if (!match) return "";
+
+              const value = match[1].trim();
+              return (value === "_No response_" || value === "No response")
+                ? ""
+                : value;
             }
 
-            const entryType       = extractField("What would you like to add\\?");
-            const entryName       = extractField("Name of the term or role");
-            const upGoerFiveName  = extractField("Up-Goer Five name");
-            const nounDefinition  = extractField("Noun definition \\(what it is\\)");
-            const nounDescription = extractField("Noun description");
-            const verbDefinition  = extractField("Verb definition \\(what it does\\)");
-            const verbDescription = extractField("Verb description");
-            const roleDescription = extractField("Role description");
+            // Extract all fields by ID
+            const entryType       = extractById("entry_type");
+            const entryName       = extractById("entry_name");
+            const upGoerFiveName  = extractById("up_goer_five_name");
+            const nounDefinition  = extractById("noun_definition");
+            const nounDescription = extractById("noun_description");
+            const verbDefinition  = extractById("verb_definition");
+            const verbDescription = extractById("verb_description");
+            const roleDescription = extractById("role_description");
 
             const isRole = entryType?.toLowerCase().includes("role");
 
             core.setOutput("entry_type",       isRole ? "role" : "term");
-            core.setOutput("entry_name",        entryName       || "");
-            core.setOutput("up_goer_five_name", upGoerFiveName  || "");
-            core.setOutput("noun_definition",   nounDefinition  || "");
-            core.setOutput("noun_description",  nounDescription || "");
-            core.setOutput("verb_definition",   verbDefinition  || "");
-            core.setOutput("verb_description",  verbDescription || "");
-            core.setOutput("role_description",  roleDescription || "");
+            core.setOutput("entry_name",        entryName);
+            core.setOutput("up_goer_five_name", upGoerFiveName);
+            core.setOutput("noun_definition",   nounDefinition);
+            core.setOutput("noun_description",  nounDescription);
+            core.setOutput("verb_definition",   verbDefinition);
+            core.setOutput("verb_description",  verbDescription);
+            core.setOutput("role_description",  roleDescription);
 
             const branchName = `issue-${context.payload.issue.number}-${
-              entryName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
+              entryName
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^a-z0-9-]/g, "")
             }`;
             core.setOutput("branch_name", branchName);
+
+            // Log all parsed fields for debugging
+            core.info("Parsed issue form fields:");
+            core.info(`  entry_type:        ${isRole ? "role" : "term"}`);
+            core.info(`  entry_name:        ${entryName        || "(empty)"}`);
+            core.info(`  up_goer_five_name: ${upGoerFiveName   || "(empty)"}`);
+            core.info(`  noun_definition:   ${nounDefinition   || "(empty)"}`);
+            core.info(`  noun_description:  ${nounDescription  || "(empty)"}`);
+            core.info(`  verb_definition:   ${verbDefinition   || "(empty)"}`);
+            core.info(`  verb_description:  ${verbDescription  || "(empty)"}`);
+            core.info(`  role_description:  ${roleDescription  || "(empty)"}`);
+            core.info(`  branch_name:       ${branchName}`);
+
 
       - name: Create branch
         run: |
