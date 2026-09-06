@@ -1,0 +1,19 @@
+---
+title: Supercomputer
+pagetitle: Supercomputer - term
+categories:
+  - noun
+  
+---
+
+## {{< meta title >}} [the name of a thing]{.word-type}
+
+::: {.definition}
+
+Big and strong computer
+
+:::
+
+Computer that does a lot of work
+
+
