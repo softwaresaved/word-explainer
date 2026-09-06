@@ -106,7 +106,7 @@ body:
   - type: input
     id: up_goer_five_name
     attributes:
-      label: Up-Goer Five name
+      label: Role Up-Goer Five name
       description: An up goer five name of the role
       placeholder: |
         e.g. "Wonder-driven computer person". Leave blank if you are suggesting a term.
