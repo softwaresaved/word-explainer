@@ -1,7 +1,7 @@
 ---
 pagetitle: Contributing Guide
 filters:
-  - ../dev-tools/filters/github-callouts.lua 
+  - ../dev-tools/filters/github-callouts.lua
   - ../dev-tools/filters/console-codeblock.lua
 comments: false
 ---
